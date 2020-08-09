@@ -4,26 +4,26 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LandingC from "./components/landing page/landingC";
 import UsersC from "./components/users/usersC";
-import PostsC from "./components/posts/PostsC";
+import Home from "./components/home/home";
 import ProfileC from "./components/profile/profile-c";
+import NavBar from "./components/nav-bar/nav-bar";
+import { Grid } from "@material-ui/core";
+import LeftNav from "./components/left-side-bar/left-nav";
+
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Link to="/signup">singup</Link>
-        <br />
-        <Link to="/posts">posts</Link>
-        <br />
-        <Link to="/users">users</Link>
-        <br />
-        <Link to="/profile">profile</Link>
-        <Switch>
-          <Route path="/signup" component={LandingC} />
-          <Route path="/profile" component={ProfileC} />
-          <Route path="/posts" component={PostsC} />
-          <Route path="/users" component={UsersC} />
-        </Switch>
-      </Router>
+      <NavBar />
+      <Grid container className="content">
+        <Grid item xs={0} sm={2}>
+          <LeftNav />
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          {/* <LandingC /> */}
+          <Home />
+        </Grid>
+        <Grid item xs={0} sm={2} />
+      </Grid>
     </div>
   );
 }
