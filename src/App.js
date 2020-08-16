@@ -3,26 +3,28 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LandingC from "./components/landing page/landingC";
-import UsersC from "./components/users/usersC";
 import Home from "./components/home/home";
-import ProfileC from "./components/profile/profile-c";
 import NavBar from "./components/nav-bar/nav-bar";
+import Comment from "./components/comment/comment";
 import { Grid } from "@material-ui/core";
 import LeftNav from "./components/left-side-bar/left-nav";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
       <Grid container className="content">
-        <Grid item xs={0} sm={2}>
+        <Grid item sm={3}>
           <LeftNav />
         </Grid>
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={6} container justify="center">
           {/* <LandingC /> */}
+          <Profile />
           <Home />
+          {/* <Comment /> */}
         </Grid>
-        <Grid item xs={0} sm={2} />
+        <Grid item xs={false} sm={3} className="red" />
       </Grid>
     </div>
   );
