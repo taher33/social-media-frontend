@@ -40,5 +40,6 @@ export const useStyles = makeStyles({
   },
   name: {
     alignSelf: "center",
+    width: "80%",
   },
 });

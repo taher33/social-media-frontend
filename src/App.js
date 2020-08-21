@@ -4,11 +4,11 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LandingC from "./components/landing page/landingC";
 import Home from "./components/home/home";
-import NavBar from "./components/nav-bar/nav-bar";
 import Comment from "./components/comment/comment";
 import { Grid } from "@material-ui/core";
 import LeftNav from "./components/left-side-bar/left-nav";
 import Profile from "./components/profile/Profile";
+import NavBar from "./components/nav-bar/nav-bar";
 
 function App() {
   return (

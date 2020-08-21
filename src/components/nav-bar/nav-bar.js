@@ -1,57 +1,32 @@
-import React, { useState } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import { Toolbar, Typography, Button, InputBase } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import { useStyles } from "./navbarCssJs";
+import React from "react";
+import NavBarV from "./nav-bar-view";
+import { connect } from "react-redux";
+import { LOGIN, LOGOUT } from "../../store/actions";
 
-export default function NavBar() {
-  const classes = useStyles();
-
-  const [log, setLog] = useState(false);
-
-  const handleLog = () => {
-    setLog(!log);
+function NavBar(props) {
+  const handleLogINBtn = () => {
+    if (!props.logedIn) props.onLogIn();
+    else props.onLogOut();
+    console.log(props);
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Facebook
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
-          <Button
-            className={classes.logBtn}
-            onClick={handleLog}
-            color="inherit"
-          >
-            {log ? "logout" : " Login"}
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <div>
+      <NavBarV handleLog={handleLogINBtn} isLoged={props.logedIn} />
     </div>
   );
 }
+
+const mapStatetoProps = state => {
+  return {
+    logedIn: state.auth.logedIn,
+  };
+};
+const mapDispatchtoProps = dispatch => {
+  return {
+    onLogIn: () => dispatch({ type: LOGIN }),
+    onLogOut: () => dispatch({ type: LOGOUT }),
+  };
+};
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(NavBar);
