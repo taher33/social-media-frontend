@@ -11,13 +11,19 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "./home-css-js";
+import { useHistory } from "react-router-dom";
 
-export default function Cards() {
+export default function Cards({ clicked }) {
   const classes = useStyles();
+  const history = useHistory();
+  const handleClick = id => {
+    history.push("/singlePost/" + id);
+  };
 
   return (
     <Card className={classes.root}>
       <CardHeader
+        onClick={() => handleClick(15)}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             R

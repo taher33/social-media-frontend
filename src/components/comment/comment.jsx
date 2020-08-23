@@ -7,9 +7,11 @@ import Typography from "@material-ui/core/Typography";
 import { useStyles } from "./comment-css-js";
 import Avatar from "@material-ui/core/Avatar";
 import { CardHeader } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 
-export default function OutlinedCard() {
+export default function OutlinedCard(props) {
   const classes = useStyles();
+  const { id } = useParams();
 
   return (
     <Card className={classes.root} variant="outlined">
@@ -20,7 +22,7 @@ export default function OutlinedCard() {
       />
       <CardContent>
         <Typography align="left" variant="body1" component="h5">
-          comment here
+          comment here with the id : {id}
         </Typography>
       </CardContent>
       <CardActions>

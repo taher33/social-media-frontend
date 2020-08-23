@@ -9,23 +9,29 @@ import { Grid } from "@material-ui/core";
 import LeftNav from "./components/left-side-bar/left-nav";
 import Profile from "./components/profile/Profile";
 import NavBar from "./components/nav-bar/nav-bar";
+import Post from "./components/singlePost/post";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <Grid container className="content">
-        <Grid item sm={3}>
-          <LeftNav />
-        </Grid>
-        <Grid item xs={12} sm={6} container justify="center">
-          {/* <LandingC /> */}
-          <Profile />
-          <Home />
-          {/* <Comment /> */}
-        </Grid>
-        <Grid item xs={false} sm={3} className="red" />
-      </Grid>
+      <Router>
+        <Switch>
+          <Grid container className="content">
+            <Grid item sm={3}>
+              <LeftNav />
+            </Grid>
+            <Grid item xs={12} sm={6} container justify="center">
+              {/* <LandingC /> */}
+              <Route exact component={Home} path="/" />
+              <Route component={Profile} path="/profile" />
+              <Route component={Comment} path="/comment/:id" />
+              <Route component={Post} path="/singlePost/:id" />
+            </Grid>
+            <Grid item xs={false} sm={3} />
+          </Grid>
+        </Switch>
+      </Router>
     </div>
   );
 }

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import PostForm from "./postingForm";
 import { Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
-export default function Home() {
+export default function Home(props) {
   return (
     <>
       <Grid container direction="column" alignItems="center">
@@ -11,6 +12,7 @@ export default function Home() {
           <PostForm />
         </Grid>
         <Grid item>
+          <Cards />
           <Cards />
         </Grid>
       </Grid>
