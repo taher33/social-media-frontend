@@ -9,7 +9,6 @@ function NavBar(props) {
     else props.onLogOut();
     console.log(props);
   };
-
   return (
     <div>
       <NavBarV handleLog={handleLogINBtn} isLoged={props.logedIn} />
