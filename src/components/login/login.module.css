@@ -25,7 +25,7 @@
 
 .wrapper {
   margin: 1.5rem;
-  height: 60vh;
+  height: 45vh;
   padding-top: 1.5rem;
 }
 
@@ -34,8 +34,14 @@
   margin-bottom: 0.7rem;
 }
 
-.action-form {
+.action_form {
   display: flex;
   align-content: space-around;
   margin-top: 0.6rem;
+  flex-flow: column;
+  align-items: center;
+}
+
+.forget_pass {
+  margin-top: 18px;
 }

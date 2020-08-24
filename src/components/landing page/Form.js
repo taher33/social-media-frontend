@@ -1,92 +1,88 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import "./landing.component.css";
+import styles from "./landing.module.css";
 import { creatUser } from "../../api/postData";
 import { Link, Typography } from "@material-ui/core";
+import { useForm } from "react-hook-form";
 
-export default class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: "",
-      password: "",
-      email: "",
-      passwordConf: "",
-    };
-  }
-  handleApi = async () => {
-    const res = await creatUser(this.state);
+export default function Form(props) {
+  const { register, handleSubmit, watch, errors } = useForm();
+  const [err, seterr] = useState({
+    error: false,
+    message: "",
+  });
+  const handleApi = async user => {
+    const res = await creatUser(user);
     console.log(res);
   };
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.onSubmit(this.state);
-    this.handleApi();
-    this.setState({
-      name: "",
-      password: "",
-      email: "",
-    });
+  const onSubmit = data => {
+    if (data.password !== data.passwordConf) {
+      seterr({ ...err, error: true, message: "wrong password" });
+      return;
+    } else {
+      handleApi(data);
+    }
   };
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-  render() {
-    return (
-      <form className="form" onSubmit={this.handleSubmit}>
-        <TextField
-          name="email"
-          onChange={this.handleChange}
-          required
-          id="standard-required"
-          label="email"
-          value={this.state.email}
-          variant="outlined"
-        />
-        <TextField
-          name="name"
-          onChange={this.handleChange}
-          required
-          id="standard-required"
-          label="full name"
-          value={this.state.name}
-          variant="outlined"
-        />
-        <TextField
-          name="password"
-          onChange={this.handleChange}
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          value={this.state.password}
-          variant="outlined"
-        />
-        <TextField
-          name="passwordConf"
-          onChange={this.handleChange}
-          id="standard-password-input"
-          label="confirm password"
-          type="password"
-          autoComplete="current-password"
-          value={this.state.passwordConf}
-          variant="outlined"
-        />
-        <div className="action-form">
-          <Button type="submit" variant="contained" color="primary">
-            Submit
-          </Button>
-          <br />
-          <Link
-            onClick={this.props.handleLogin}
-            component="button"
-            variant="body2"
-          >
-            <Typography>login</Typography>
-          </Link>
-        </div>
-      </form>
-    );
-  }
+
+  return (
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <TextField
+        name="email"
+        required
+        // onChange={this.handleChange}
+        type="email"
+        id="standard-required"
+        label="email"
+        // value={this.state.email}
+        inputRef={register}
+        variant="outlined"
+      />
+      <TextField
+        name="name"
+        // onChange={this.handleChange}
+        required
+        inputRef={register}
+        id="standard-required"
+        label="full name"
+        // value={this.state.name}
+        variant="outlined"
+      />
+      <TextField
+        name="password"
+        required
+        inputRef={register}
+        // onChange={this.handleChange}
+        id="standard-password-input"
+        label="Password"
+        type="password"
+        autoComplete="current-password"
+        // value={this.state.password}
+        variant="outlined"
+      />
+      <TextField
+        name="passwordConf"
+        // onChange={this.handleChange}
+        required
+        id="standard-password-input"
+        label="confirm password"
+        type="password"
+        inputRef={register}
+        autoComplete="current-password"
+        error={err.error}
+        helperText={err.message}
+        // value={this.state.passwordConf}
+        variant="outlined"
+      />
+      <div className={styles.action_form}>
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
+        <br />
+        <Link onClick={props.handleLogin} component="button" variant="body2">
+          <Typography>login</Typography>
+        </Link>
+      </div>
+    </form>
+  );
 }

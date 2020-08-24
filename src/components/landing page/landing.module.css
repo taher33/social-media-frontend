@@ -1,0 +1,41 @@
+.form {
+  display: flex;
+  align-content: center;
+  flex-flow: column;
+  justify-content: space-around;
+  /* width: 100%; */
+  align-items: center;
+}
+
+.form div {
+  margin-bottom: 0.5rem;
+  width: 80%;
+}
+
+.form div div {
+  width: 100%;
+}
+
+.form button {
+  width: 50%;
+}
+.form input {
+  width: 100%;
+}
+
+.wrapper {
+  margin: 1.5rem;
+  height: 60vh;
+  padding-top: 1.5rem;
+}
+
+.text {
+  color: rgba(27, 61, 214, 0.884);
+  margin-bottom: 0.7rem;
+}
+
+.action_form {
+  display: flex;
+  align-content: space-around;
+  margin-top: 0.6rem;
+}

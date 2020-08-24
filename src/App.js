@@ -2,7 +2,6 @@ import React from "react";
 // import logo from './logo.svg';
 import "./App.css";
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link,
@@ -19,30 +18,31 @@ import Profile from "./components/profile/Profile";
 import NavBar from "./components/nav-bar/nav-bar";
 import Post from "./components/singlePost/post";
 import { connect } from "react-redux";
+import Login from "./components/login/login";
 
 function App(props) {
   let signup = !props.logedIn ? <Redirect to="/signUp" /> : null;
+  console.log(props);
   return (
     <div className="App">
-      <Router>
-        {signup}
-        {props.logedIn ? <NavBar /> : null}
-        <Switch>
-          <Route component={LandingC} path="/signUp" />
-          <Grid container className="content">
-            <Grid item sm={3}>
-              <LeftNav />
-            </Grid>
-            <Grid item xs={12} sm={6} container justify="center">
-              <Route exact component={Home} path="/" />
-              <Route component={Profile} path="/profile" />
-              <Route component={Comment} path="/comment/:id" />
-              <Route component={Post} path="/singlePost/:id" />
-            </Grid>
-            <Grid item xs={false} sm={3} />
+      {/* {signup} */}
+      {props.logedIn ? <NavBar /> : null}
+      <Switch>
+        <Route component={LandingC} path="/signUp" />
+        <Route component={Login} path="/logIn" />
+        <Grid container className="content">
+          <Grid item sm={3}>
+            <LeftNav />
           </Grid>
-        </Switch>
-      </Router>
+          <Grid item xs={12} sm={6} container justify="center">
+            <Route exact component={Home} path="/" />
+            <Route component={Profile} path="/profile" />
+            <Route component={Comment} path="/comment/:id" />
+            <Route component={Post} path="/singlePost/:id" />
+          </Grid>
+          <Grid item xs={false} sm={3} />
+        </Grid>
+      </Switch>
     </div>
   );
 }

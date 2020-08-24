@@ -2,11 +2,15 @@ import React from "react";
 import NavBarV from "./nav-bar-view";
 import { connect } from "react-redux";
 import { LOGIN, LOGOUT } from "../../store/actions";
+import { useHistory } from "react-router-dom";
 
 function NavBar(props) {
+  const history = useHistory();
   const handleLogINBtn = () => {
-    if (!props.logedIn) props.onLogIn();
-    else props.onLogOut();
+    if (!props.logedIn) {
+      history.push("/logIn");
+      props.onLogIn();
+    } else props.onLogOut();
     console.log(props);
   };
   return (
