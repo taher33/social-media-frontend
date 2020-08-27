@@ -1,14 +1,7 @@
 import React from "react";
 // import logo from './logo.svg';
 import "./App.css";
-import {
-  Switch,
-  Route,
-  Link,
-  useLocation,
-  useHistory,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import LandingC from "./components/landing page/landingC";
 import Home from "./components/home/home";
 import Comment from "./components/comment/comment";
@@ -19,13 +12,13 @@ import NavBar from "./components/nav-bar/nav-bar";
 import Post from "./components/singlePost/post";
 import { connect } from "react-redux";
 import Login from "./components/login/login";
-
+const cookies = document.cookie;
+console.log(cookies);
 function App(props) {
   let signup = !props.logedIn ? <Redirect to="/signUp" /> : null;
-  console.log(props);
   return (
     <div className="App">
-      {/* {signup} */}
+      {signup}
       {props.logedIn ? <NavBar /> : null}
       <Switch>
         <Route component={LandingC} path="/signUp" />

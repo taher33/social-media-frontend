@@ -3,28 +3,46 @@ import Form from "./loginForm";
 import styles from "./login.module.css";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import { login_to_api } from "../../api/postData";
-export default function Login() {
+import { useHistory } from "react-router-dom";
+import { LOGIN, LOGOUT } from "../../store/actions";
+import { connect } from "react-redux";
+
+function Login(props) {
   const handleForgotPass = () => {
     console.log("forgot password");
   };
+  const history = useHistory();
   const [err, seterr] = useState({
     error: false,
     message: "",
   });
-  console.log(err);
+  //this func sends a request to the api
   const handleApi = async data => {
+    console.log("before try");
     try {
-      const result = await login_to_api(data);
-      console.log(result);
-    } catch (_) {
+      //wating for the response of the api
+      const res = await login_to_api(data);
+      console.log(res);
+      console.log(document.cookie);
+      //login with redux
+      props.onLogIn();
+      //go to the home page
+      history.push("/");
+    } catch (err) {
+      //if user info did not exist on the server then we set errors to the form
+      //errors using react-hook-form
+      console.log(err);
       seterr({
         error: true,
         message: "wrong password or email",
       });
     }
   };
+  // handles submited data from the form
+  //we get the data with react-hook-form
   const handleSubmit = data => {
     handleApi(data);
+    console.log(data);
   };
   return (
     <div>
@@ -45,3 +63,17 @@ export default function Login() {
     </div>
   );
 }
+//putting the redux state to props
+const mapStatetoProps = state => {
+  return {
+    logedIn: state.auth.logedIn,
+  };
+};
+const mapDispatchtoProps = dispatch => {
+  return {
+    onLogIn: () => dispatch({ type: LOGIN }),
+    onLogOut: () => dispatch({ type: LOGOUT }),
+  };
+};
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(Login);

@@ -30,9 +30,14 @@ export const createPost = async state => {
 };
 
 export const login_to_api = async ({ email, password }) => {
-  const data = await axios.post("http://localhost:5000/users/login", {
-    email,
-    password,
+  const { data } = await axios({
+    method: "POST",
+    url: "http://localhost:5000/users/login",
+    withCredentials: true,
+    headers: {
+      crossDomain: true,
+    },
+    data: { email, password },
   });
   return data;
 };
