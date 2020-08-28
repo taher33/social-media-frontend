@@ -8,16 +8,15 @@ export const fetchUsers = async () => {
   }
 };
 //still needs work
-export const fetchPPosts = async () => {
-  let config = {
-    headers: {
-      Authorization:
-        "Bearer " +
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmMTJkZjc3N2NiMTBhMWI5MDliMjE2NCIsImlhdCI6MTU5NjEyNzc3MywiZXhwIjoxNjAzOTAzNzczfQ.dj4fmV8Fgp1oHVDZnuizvn2dCqNwZ8_Am1hWHkkfqvU",
-    },
-  };
-  const {
-    data: { posts },
-  } = await axios.get("http://localhost:5000/posts", config);
-  return posts;
+export const fetchPosts = async () => {
+  try {
+    const {
+      data: { posts },
+    } = await axios.get("http://localhost:5000/posts", {
+      withCredentials: true,
+    });
+    return posts;
+  } catch (err) {
+    return err.response.data;
+  }
 };

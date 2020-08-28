@@ -4,7 +4,7 @@ import styles from "./login.module.css";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import { login_to_api } from "../../api/postData";
 import { useHistory } from "react-router-dom";
-import { LOGIN, LOGOUT } from "../../store/actions";
+import { LOGIN, LOGOUT, login, logout } from "../../store/actions";
 import { connect } from "react-redux";
 
 function Login(props) {
@@ -71,8 +71,8 @@ const mapStatetoProps = state => {
 };
 const mapDispatchtoProps = dispatch => {
   return {
-    onLogIn: () => dispatch({ type: LOGIN }),
-    onLogOut: () => dispatch({ type: LOGOUT }),
+    onLogIn: () => dispatch(login()),
+    onLogOut: () => dispatch(logout()),
   };
 };
 

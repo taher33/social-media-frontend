@@ -12,8 +12,7 @@ import NavBar from "./components/nav-bar/nav-bar";
 import Post from "./components/singlePost/post";
 import { connect } from "react-redux";
 import Login from "./components/login/login";
-const cookies = document.cookie;
-console.log(cookies);
+
 function App(props) {
   let signup = !props.logedIn ? <Redirect to="/signUp" /> : null;
   return (

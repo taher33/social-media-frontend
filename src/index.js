@@ -3,16 +3,25 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import reducer from "./store/reducers/reducer";
 import { BrowserRouter, Route } from "react-router-dom";
+import thunk from "redux-thunk";
 // import * as serviceWorker from './serviceWorker';
 
 const rootReducer = combineReducers({
   auth: reducer,
 });
+const loger = store => next => action => {
+  console.log("hey");
+  return next(action);
+};
 
-const store = createStore(rootReducer);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(loger, thunk))
+);
 
 ReactDOM.render(
   <React.StrictMode>
