@@ -1,7 +1,7 @@
 import React from "react";
 // import logo from './logo.svg';
 import "./App.css";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import LandingC from "./components/landing page/landingC";
 import Home from "./components/home/home";
 import Comment from "./components/comment/comment";
@@ -12,27 +12,37 @@ import NavBar from "./components/nav-bar/nav-bar";
 import Post from "./components/singlePost/post";
 import { connect } from "react-redux";
 import Login from "./components/login/login";
+import { checkLog } from "./store/actions";
+import Right_bar from "./components/right-side-bar/Right_bar";
 
 function App(props) {
-  let signup = !props.logedIn ? <Redirect to="/signUp" /> : null;
+  props.checkLogState();
+  const history = useHistory();
+
+  if (props.logedIn) {
+    history.push("/");
+  } else {
+    history.push("/signUp");
+  }
   return (
     <div className="App">
-      {signup}
       {props.logedIn ? <NavBar /> : null}
       <Switch>
         <Route component={LandingC} path="/signUp" />
         <Route component={Login} path="/logIn" />
-        <Grid container className="content">
+        <Grid container className="content" spacing={5}>
           <Grid item sm={3}>
             <LeftNav />
           </Grid>
-          <Grid item xs={12} sm={6} container justify="center">
+          <Grid item xs={12} sm={5} container justify="center">
             <Route exact component={Home} path="/" />
-            <Route component={Profile} path="/profile" />
+            <Route component={Profile} path="/profile/:type" />
             <Route component={Comment} path="/comment/:id" />
             <Route component={Post} path="/singlePost/:id" />
           </Grid>
-          <Grid item xs={false} sm={3} />
+          <Grid item xs={false} sm={3}>
+            {props.logedIn ? <Right_bar /> : null}
+          </Grid>
         </Grid>
       </Switch>
     </div>
@@ -44,5 +54,12 @@ const mapStatetoProps = state => {
     logedIn: state.auth.logedIn,
   };
 };
+const mapDispatchtoProps = dispatch => {
+  return {
+    // onLogIn: () => dispatch({ type: LOGIN }),
+    // onLogOut: () => dispatch({ type: LOGOUT }),
+    checkLogState: () => dispatch(checkLog()),
+  };
+};
 
-export default connect(mapStatetoProps)(App);
+export default connect(mapStatetoProps, mapDispatchtoProps)(App);

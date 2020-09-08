@@ -8,6 +8,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import { useStyles } from "./left-cssInJs";
 import MessageIcon from "@material-ui/icons/Message";
 import { Link } from "react-router-dom";
+import Create_page from "./Create_page";
 
 export default function LeftNav() {
   const classes = useStyles();
@@ -24,13 +25,14 @@ export default function LeftNav() {
         <Link to="/">
           <Tab icon={<HomeIcon />} aria-label="home" label="Home" />
         </Link>
-        <Link to="/profile">
+        <Link to="/profile/user?id=me">
           <Tab icon={<PersonPinIcon />} aria-label="person" label="person" />
         </Link>
         <Link to={`/comment/${id}`}>
           <Tab icon={<PhoneIcon />} aria-label="phone" label="phone" />
         </Link>
         <Tab icon={<MessageIcon />} aria-label="message" label="message" />
+        <Create_page />
         <Tab icon={<FavoriteIcon />} aria-label="favorite" label="fav" />
       </Tabs>
     </div>

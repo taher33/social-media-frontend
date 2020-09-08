@@ -1,0 +1,33 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paper {
+  width: 50%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+.form {
+  display: flex;
+  margin: 0.6rem 0;
+  width: 100%;
+  /* justify-content: center; */
+  justify-content: space-evenly;
+}
+
+.input {
+  width: 70%;
+  margin-left: 30px;
+}
+.btn {
+  height: 2rem;
+  width: fit-content;
+  padding: 0 2rem;
+  align-self: flex-end;
+  margin-left: 15px;
+}

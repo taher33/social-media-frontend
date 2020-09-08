@@ -5,6 +5,7 @@ import { LOGIN, LOGOUT } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 function NavBar(props) {
+  console.log(props);
   const history = useHistory();
   const handleLogINBtn = () => {
     if (!props.logedIn) {
@@ -14,7 +15,7 @@ function NavBar(props) {
     console.log(props);
   };
   return (
-    <div>
+    <div style={{ marginBottom: "10px" }}>
       <NavBarV handleLog={handleLogINBtn} isLoged={props.logedIn} />
     </div>
   );

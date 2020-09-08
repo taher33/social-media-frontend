@@ -12,18 +12,21 @@ import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "./home-css-js";
 import { useHistory } from "react-router-dom";
+import Comment_form from "../comment/comment-form";
 
-export default function Cards({ clicked }) {
+export default function Cards({ data }) {
   const classes = useStyles();
   const history = useHistory();
   const handleClick = id => {
-    history.push("/singlePost/" + id);
+    // history.push("/singlePost/" + id);
+    console.log(id);
   };
 
+  // if (data === Object) return <h1>loading</h1>;
+  // else
   return (
     <Card className={classes.root}>
       <CardHeader
-        onClick={() => handleClick(15)}
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             R
@@ -34,25 +37,31 @@ export default function Cards({ clicked }) {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={
+          <div onClick={() => handleClick(data._id)}>
+            <Typography>{data.user.name}</Typography>
+          </div>
+        }
+        // subheader="September 14, 2016"
       />
-      <CardMedia
-        className={classes.media}
-        image={require("./img/hey.jpg")}
-        title="an image"
-      />
+      {data.photo ? null : (
+        <CardMedia
+          className={classes.media}
+          image={require("./img/hey.jpg")}
+          title="an image"
+        />
+      )}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+          {data.text}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
+        {data.likes}
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
+        <Comment_form postId={data._id} name={data.user.name} />
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>

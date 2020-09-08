@@ -20,3 +20,14 @@ export const fetchPosts = async () => {
     return err.response.data;
   }
 };
+
+export const fetchPages = async () => {
+  try {
+    const { data } = await axios.get("http://localhost:5000/pages", {
+      withCredentials: true,
+    });
+    return data;
+  } catch (err) {
+    return err.response.data;
+  }
+};

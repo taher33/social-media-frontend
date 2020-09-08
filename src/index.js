@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
   auth: reducer,
 });
 const loger = store => next => action => {
-  console.log("hey");
   return next(action);
 };
 

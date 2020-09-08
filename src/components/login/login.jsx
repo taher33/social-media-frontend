@@ -42,7 +42,6 @@ function Login(props) {
   //we get the data with react-hook-form
   const handleSubmit = data => {
     handleApi(data);
-    console.log(data);
   };
   return (
     <div>

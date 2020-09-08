@@ -1,7 +1,10 @@
-import { LOGIN, LOGOUT } from "../actions";
+import { LOGIN, LOGOUT, POSTS, PROFILE_POSTS, PROFILE_DATA } from "../actions";
 
 const initialState = {
   logedIn: false,
+  posts: [],
+  profilePosts: [],
+  profileData: {},
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -15,6 +18,22 @@ const reducer = (state = initialState, action) => {
         ...state,
         logedIn: false,
       };
+    case POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+      };
+    case PROFILE_POSTS:
+      return {
+        ...state,
+        profilePosts: action.payload,
+      };
+    case PROFILE_DATA: {
+      return {
+        ...state,
+        profileData: action.payload,
+      };
+    }
   }
   return state;
 };

@@ -14,18 +14,22 @@ export const creatUser = async ({ email, name, password, passwordConf }) => {
   }
 };
 
-export const createPost = async state => {
+export const createPost = async post => {
+  console.log(post);
+
   try {
-    console.log(state.name, state.postData);
-    const result = await axios.post("http://localhost:5000/posts", {
-      name: state.name,
-      text: state.postData,
-      // likes,
+    const result = await axios({
+      method: "POST",
+      withCredentials: true,
+      url: "http://localhost:5000/posts",
+      data: {
+        content: post.post,
+      },
     });
 
     return result;
   } catch (err) {
-    console.log("from postData");
+    console.log(err.response.data);
   }
 };
 
@@ -40,4 +44,23 @@ export const login_to_api = async ({ email, password }) => {
     data: { email, password },
   });
   return data;
+};
+
+export const createComment = async (id, text) => {
+  console.log(text.reply);
+  let error = false;
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: `http://localhost:5000/posts/${id}/comment`,
+      withCredentials: true,
+      data: { text: text.reply },
+    });
+
+    return { data, error };
+  } catch (err) {
+    console.log(err.response.data);
+    error = true;
+    return error;
+  }
 };

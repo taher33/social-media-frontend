@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.root {
+  width: 100%;
+}
+.listItem {
+  margin-bottom: 1rem;
+}
