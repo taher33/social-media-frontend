@@ -15,21 +15,26 @@ export const creatUser = async ({ email, name, password, passwordConf }) => {
 };
 
 export const createPost = async post => {
-  console.log(post);
+  const formData = new FormData();
 
+  formData.append("content", post.post);
+  formData.append("picture", post.picture[0]);
+  console.log(post.picture[0]);
   try {
     const result = await axios({
       method: "POST",
       withCredentials: true,
       url: "http://localhost:5000/posts",
-      data: {
-        content: post.post,
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
+      data: formData,
     });
 
     return result;
   } catch (err) {
     console.log(err.response.data);
+    return (err.data = null);
   }
 };
 

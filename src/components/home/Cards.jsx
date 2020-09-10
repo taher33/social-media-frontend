@@ -21,16 +21,18 @@ export default function Cards({ data }) {
     // history.push("/singlePost/" + id);
     console.log(id);
   };
-
+  console.log(data);
   // if (data === Object) return <h1>loading</h1>;
   // else
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          <Avatar
+            src={`http://localhost:5000/post-imgs/${data.user.profileImg}`}
+            aria-label="recipe"
+            className={classes.avatar}
+          />
         }
         action={
           <IconButton aria-label="settings">
@@ -44,15 +46,15 @@ export default function Cards({ data }) {
         }
         // subheader="September 14, 2016"
       />
-      {data.photo ? null : (
+      {data.photo.length === 0 ? null : (
         <CardMedia
           className={classes.media}
-          image={require("./img/hey.jpg")}
+          image={`http://localhost:5000/post-imgs/${data.photo[0]}`}
           title="an image"
         />
       )}
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="h6" color="textSecondary" component="p">
           {data.text}
         </Typography>
       </CardContent>

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
 import PostForm from "./postingForm";
 import { Grid } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import { fetchPosts } from "../../api/fetchData";
 import { getPosts } from "../../store/actions";
 import { connect } from "react-redux";
 import { createPost } from "../../api/postData";
@@ -12,7 +10,9 @@ function Home(props) {
   const posts = props.posts;
   const [status, setStatus] = useState("");
   const handleSubmit = async data => {
+    console.log(data);
     const res = await createPost(data);
+    console.log(res);
     setStatus(res.data.status);
   };
 

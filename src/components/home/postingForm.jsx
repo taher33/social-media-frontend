@@ -14,7 +14,11 @@ export default function PostForm(props) {
   return (
     <Paper variant="outlined" className={classes.uperDiv}>
       <img src={require("./img/helo.jpg")} className={classes.img} />
-      <form onSubmit={handleSubmit(props.onSubmit)} className={classes.form}>
+      <form
+        onSubmit={handleSubmit(props.onSubmit)}
+        className={classes.form}
+        encType="multipart/form-data"
+      >
         <TextField
           name="post"
           inputRef={register}
@@ -25,8 +29,17 @@ export default function PostForm(props) {
           size="medium"
         />
         <div className={classes.actionDiv}>
-          <IconButton className={classes.imgIcon}>
-            <PermMediaIcon />
+          <IconButton component="label" className={classes.imgIcon}>
+            <>
+              <PermMediaIcon />
+
+              <input
+                type="file"
+                style={{ display: "none" }}
+                ref={register}
+                name="picture"
+              />
+            </>
           </IconButton>
           <Button
             variant="contained"
