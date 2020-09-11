@@ -1,9 +1,8 @@
-import axios from "../utils/axios";
+import axios from "axios";
 export const likePosts = async id => {
   try {
-    await axios.patch("/posts", {
+    await axios.patch("http://localhost:5000/posts", {
       postId: id,
-      // isAdmin: true,
     });
   } catch (err) {
     console.log(err);

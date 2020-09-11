@@ -6,9 +6,10 @@ export const POSTS = "POSTS";
 export const PROFILE_POSTS = "PROFILE_POSTS";
 export const PROFILE_DATA = "PROFILE_DATA";
 
-export const login = () => {
+export const login = user => {
   return {
     type: LOGIN,
+    payload: user,
   };
 };
 
@@ -24,7 +25,7 @@ export const checkLog = () => dispatch => {
     withCredentials: true,
   })
     .then(res => {
-      dispatch(login());
+      dispatch(login(res.data.user));
     })
     .catch(err => {
       console.log(err);

@@ -1,6 +1,7 @@
 import { LOGIN, LOGOUT, POSTS, PROFILE_POSTS, PROFILE_DATA } from "../actions";
 
 const initialState = {
+  user: {},
   logedIn: false,
   posts: [],
   profilePosts: [],
@@ -12,6 +13,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         logedIn: true,
+        user: action.payload,
       };
     case LOGOUT:
       return {

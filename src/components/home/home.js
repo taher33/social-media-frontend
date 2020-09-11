@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import { getPosts } from "../../store/actions";
 import { connect } from "react-redux";
 import { createPost } from "../../api/postData";
+import { likePosts } from "../../api/patchData";
 
 function Home(props) {
   const posts = props.posts;
@@ -16,9 +17,13 @@ function Home(props) {
     setStatus(res.data.status);
   };
 
+  const handleLike = async () => {
+    await likePosts();
+  };
+
   useEffect(() => {
     props.givePosts();
-  }, [status]);
+  }, [setStatus]);
 
   return (
     <>
@@ -34,7 +39,7 @@ function Home(props) {
         <Grid item style={{ width: "100%" }}>
           {posts.length !== 0 ? (
             posts.map(el => {
-              return <Cards data={el} />;
+              return <Cards client={props.user._id} data={el} />;
             })
           ) : (
             <h1>loading posts</h1>
@@ -59,6 +64,7 @@ function Home(props) {
 const mapStatetoProps = state => {
   return {
     posts: state.auth.posts,
+    user: state.auth.user,
   };
 };
 const mapDispatchtoProps = dispatch => {

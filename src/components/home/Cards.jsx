@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -13,15 +13,26 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "./home-css-js";
 import { useHistory } from "react-router-dom";
 import Comment_form from "../comment/comment-form";
+import { Menu, MenuItem } from "@material-ui/core";
 
-export default function Cards({ data }) {
+export default function Cards({ data, client }) {
   const classes = useStyles();
   const history = useHistory();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [like, setLike] = useState(false);
+  const handleClickSettings = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const handleClick = id => {
     // history.push("/singlePost/" + id);
     console.log(id);
   };
-  console.log(data);
+  // const isLiked = data.likes.includes(client) ? "action" : "disabled";
+
   // if (data === Object) return <h1>loading</h1>;
   // else
   return (
@@ -35,9 +46,21 @@ export default function Cards({ data }) {
           />
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
+          <>
+            <IconButton aria-label="settings" onClick={handleClickSettings}>
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>edit</MenuItem>
+              <MenuItem onClick={handleClose}>delete</MenuItem>
+            </Menu>
+          </>
         }
         title={
           <div onClick={() => handleClick(data._id)}>
@@ -49,7 +72,7 @@ export default function Cards({ data }) {
       {data.photo.length === 0 ? null : (
         <CardMedia
           className={classes.media}
-          image={`http://localhost:5000/post-imgs/${data.photo[0]}`}
+          image={`http://localhost:5000/post-imgs/${data.photo}`}
           title="an image"
         />
       )}
@@ -59,9 +82,16 @@ export default function Cards({ data }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {data.likes}
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        {data.likes.length}
+        <IconButton
+          aria-label="add to favorites"
+          onClick={() =>
+            setLike(state => {
+              return !state;
+            })
+          }
+        >
+          <FavoriteIcon color={like ? "primary" : "disabled"} />
         </IconButton>
         <Comment_form postId={data._id} name={data.user.name} />
         <IconButton aria-label="share">
