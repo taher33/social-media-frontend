@@ -10,9 +10,12 @@ import {
   Button,
 } from "@material-ui/core";
 import PostAddIcon from "@material-ui/icons/PostAdd";
+import { useForm } from "react-hook-form";
+import { create_page } from "../../api/postData";
 
 function Create_page() {
   const [open, setOpen] = React.useState(false);
+  const { register, handleSubmit, watch, errors } = useForm();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,6 +23,11 @@ function Create_page() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const submitForm = async data => {
+    console.log(data);
+    await create_page(data.name);
   };
 
   return (
@@ -36,28 +44,32 @@ function Create_page() {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">create a page</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To create a new page you have to select a unique name , please enter
-            a name here.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="page name"
-            type="text"
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            submit
-          </Button>
-        </DialogActions>
+        <form onSubmit={handleSubmit(submitForm)}>
+          <DialogContent>
+            <DialogContentText>
+              To create a new page you have to select a unique name , please
+              enter a name here.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              inputRef={register}
+              name="name"
+              margin="dense"
+              id="name"
+              label="page name"
+              type="text"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button type="submit" onClick={handleClose} color="primary">
+              submit
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

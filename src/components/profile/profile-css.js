@@ -25,14 +25,15 @@ export const useStyles = makeStyles({
     textAlign: "center",
   },
   followBtn: {
-    float: "right",
-    marginLeft: "50%",
+    width: "10rem",
+    marginRight: "5px",
   },
   aboutDiv: {
     marginTop: "2vw",
     marginBottom: "2vw",
   },
   statdiv: {
+    marginTop: "1rem",
     display: "flex",
     paddingBottom: "1vw",
     paddingLeft: "2vw",

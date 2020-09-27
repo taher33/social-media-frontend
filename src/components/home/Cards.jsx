@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -14,27 +14,54 @@ import { useStyles } from "./home-css-js";
 import { useHistory } from "react-router-dom";
 import Comment_form from "../comment/comment-form";
 import { Menu, MenuItem } from "@material-ui/core";
+import { likePosts } from "../../api/patchData";
 
 export default function Cards({ data, client }) {
+  //material-ui css in js
   const classes = useStyles();
   const history = useHistory();
+
   const [anchorEl, setAnchorEl] = useState(null);
-  const [like, setLike] = useState(false);
+  //state of the like btn
+  const [like, setLike] = useState(() => {
+    return data.likes.includes(client);
+  });
+  //state of the likes number
+  const [likeNum, setLikeNum] = useState(() => {
+    return data.likes.length;
+  });
+  //this came with material-ui
   const handleClickSettings = event => {
     setAnchorEl(event.currentTarget);
   };
-
+  //this came with material-ui
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //this func handles clicking on the title takes the user to the post with comments
   const handleClick = id => {
-    // history.push("/singlePost/" + id);
+    history.push("/singlePost/" + id);
     console.log(id);
   };
-  // const isLiked = data.likes.includes(client) ? "action" : "disabled";
+  const onLike = async id => {
+    await likePosts(id);
+  };
+  // this func handles the frontend part of the likeBtn
+  const likeBtn = () => {
+    //this func came from props
+    onLike(data._id);
+    setLike(state => {
+      return !state;
+    });
+    setLikeNum(prevState => {
+      if (like) {
+        return prevState - 1;
+      } else {
+        return prevState + 1;
+      }
+    });
+  };
 
-  // if (data === Object) return <h1>loading</h1>;
-  // else
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -82,15 +109,8 @@ export default function Cards({ data, client }) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        {data.likes.length}
-        <IconButton
-          aria-label="add to favorites"
-          onClick={() =>
-            setLike(state => {
-              return !state;
-            })
-          }
-        >
+        {likeNum}
+        <IconButton aria-label="add to favorites" onClick={likeBtn}>
           <FavoriteIcon color={like ? "primary" : "disabled"} />
         </IconButton>
         <Comment_form postId={data._id} name={data.user.name} />

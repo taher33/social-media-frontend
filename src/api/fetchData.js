@@ -31,3 +31,45 @@ export const fetchPages = async () => {
     return err.response.data;
   }
 };
+
+export const fetchOneUser = async id => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "http://localhost:5000/users/one/" + id,
+
+      withCredentials: true,
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchOneUser_posts = async id => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "http://localhost:5000/posts/?user=" + id,
+
+      withCredentials: true,
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const fetchOnePage = async id => {
+  try {
+    const { data } = await axios({
+      method: "GET",
+      url: "http://localhost:5000/pages/" + id,
+
+      withCredentials: true,
+    });
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};

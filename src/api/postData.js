@@ -69,3 +69,19 @@ export const createComment = async (id, text) => {
     return error;
   }
 };
+
+export const create_page = async name => {
+  console.log(name);
+  try {
+    const { data } = await axios({
+      method: "POST",
+      url: "http://localhost:5000/pages",
+      withCredentials: true,
+      data: {
+        name,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -5,25 +5,18 @@ import { Grid } from "@material-ui/core";
 import { getPosts } from "../../store/actions";
 import { connect } from "react-redux";
 import { createPost } from "../../api/postData";
-import { likePosts } from "../../api/patchData";
 
 function Home(props) {
   const posts = props.posts;
-  const [status, setStatus] = useState("");
-  const handleSubmit = async data => {
-    console.log(data);
-    const res = await createPost(data);
-    console.log(res);
-    setStatus(res.data.status);
-  };
 
-  const handleLike = async () => {
-    await likePosts();
+  const handleSubmit = async data => {
+    const res = await createPost(data);
   };
 
   useEffect(() => {
-    props.givePosts();
-  }, [setStatus]);
+    props.getPosts_inState();
+  }, []);
+  console.log(posts);
 
   return (
     <>
@@ -69,7 +62,7 @@ const mapStatetoProps = state => {
 };
 const mapDispatchtoProps = dispatch => {
   return {
-    givePosts: () => dispatch(getPosts()),
+    getPosts_inState: () => dispatch(getPosts()),
   };
 };
 export default connect(mapStatetoProps, mapDispatchtoProps)(Home);

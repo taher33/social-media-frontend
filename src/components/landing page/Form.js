@@ -5,8 +5,10 @@ import styles from "./landing.module.css";
 import { creatUser } from "../../api/postData";
 import { Link, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 export default function Form(props) {
+  const history = useHistory();
   const { register, handleSubmit, watch, errors } = useForm();
   const [err, seterr] = useState({
     error: false,
@@ -14,7 +16,7 @@ export default function Form(props) {
   });
   const handleApi = async user => {
     const res = await creatUser(user);
-    console.log(res);
+    if (res.status === "success") history.push("/");
   };
   const onSubmit = data => {
     if (data.password !== data.passwordConf) {
@@ -86,3 +88,4 @@ export default function Form(props) {
     </form>
   );
 }
+// add checklog here

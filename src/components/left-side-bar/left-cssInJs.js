@@ -6,4 +6,7 @@ export const useStyles = makeStyles(theme => ({
       display: "none",
     },
   },
+  navLink: {
+    backgroundColor: "blue",
+  },
 }));

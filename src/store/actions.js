@@ -19,12 +19,27 @@ export const logout = () => {
   };
 };
 
+export const logout_server = () => dispatch => {
+  Axios({
+    method: "DELETE",
+    withCredentials: true,
+    url: "http://localhost:5000/users/logout",
+  })
+    .then(res => {
+      dispatch(logout());
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    });
+};
+
 export const checkLog = () => dispatch => {
   Axios.get("http://localhost:5000/users/checkLogin", {
     data: { checkLogIn: "true" },
     withCredentials: true,
   })
     .then(res => {
+      console.log(res);
       dispatch(login(res.data.user));
     })
     .catch(err => {
@@ -75,7 +90,6 @@ export const getProfilePosts = id => {
     })
       .then(res => {
         dispatch(storeProfilePosts(res.data.posts));
-        dispatch(storeProfileData(res.data.user));
       })
       .catch(err => {
         console.log(err);
@@ -87,10 +101,8 @@ export const getProfilePosts_pages = id => {
   return dispatch => {
     Axios.get(`http://localhost:5000/pages/${id}`, {
       withCredentials: true,
-      // params: { profile: true },
     })
       .then(res => {
-        console.log(res.data);
         dispatch(storeProfilePosts(res.data.pagePosts));
         dispatch(storeProfileData(res.data.page));
       })

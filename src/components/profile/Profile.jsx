@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useStyles } from "./profile-css";
 import { Paper, Button, Link, Typography } from "@material-ui/core";
 import Cards from "../home/Cards";
@@ -6,6 +6,12 @@ import { getProfilePosts, getProfilePosts_pages } from "../../store/actions";
 import { connect } from "react-redux";
 import PostForm from "../home/postingForm";
 import { useLocation, useParams } from "react-router-dom";
+import {
+  fetchOnePage,
+  fetchOneUser,
+  fetchOneUser_posts,
+} from "../../api/fetchData";
+import { register_follower_db } from "../../api/patchData";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -17,61 +23,99 @@ function Profile(props) {
   const classes = useStyles();
   const { type } = useParams();
 
+  const [data, setData] = useState({});
+
+  const [posts, setPosts] = useState([]);
+
+  const getProfileData_user = async () => {
+    const res = await fetchOneUser(id);
+    setData(res.user);
+  };
+
+  const getProfilePosts_user = async () => {
+    const res = await fetchOneUser_posts(id);
+    console.log(res);
+  };
+
+  const getPageData = async () => {
+    const res = await fetchOnePage(id);
+    setData(res.page);
+    setPosts(res.pagePosts);
+  };
+
   useEffect(() => {
     if (type === "user") {
-      props.getPosts(id);
+      getProfileData_user();
+      getProfilePosts_user();
     } else {
-      props.getPosts_pages(id);
+      getPageData();
     }
-  }, [id]);
+    return () => {
+      console.log("hey");
+    };
+  }, []);
 
-  const handleSubmit = data => {
-    console.log(data);
-    console.log(props);
-    console.log(id);
+  // need to work on it **
+  const handleFollow = async () => {
+    await register_follower_db(data.email);
   };
-  console.log(props.data);
+
+  const handleSubmit = data => {};
+
   return (
     <>
-      {Object.keys(props.data).length === 0 ? null : (
+      {Object.keys(data).length === 0 || data === undefined ? null : (
         <Paper className={classes.root}>
           <img
             className={classes.coverImg}
-            src={require("../home/img/hey.jpg")}
+            src={`http://localhost:5000/users/${data.cover}`}
           />
-          <img
-            className={classes.profileImg}
-            src={require("../home/img/helo.jpg")}
-          />
+          {type === "user" ? (
+            <img
+              className={classes.profileImg}
+              src={`http://localhost:5000/users/${data.profileImg}`}
+            />
+          ) : null}
           <div className={classes.namediv}>
             <Typography variant="h6" className={classes.name}>
-              {props.data.name}
+              {data.name}
             </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.followBtn}
-            >
-              follow
-            </Button>
+            {id === "me" || id === props.user._id ? (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.followBtn}
+              >
+                edit profile
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.followBtn}
+                onClick={handleFollow}
+              >
+                follow
+              </Button>
+            )}
           </div>
-          <Typography>
-            <div className={classes.aboutDiv}>
+          {/* <div className={classes.aboutDiv}>
               about me do stuff here about me do stuff here about me do stuff
               here about me do stuff here about me do stuff here about me do
               stuff here about me do stuff here
-            </div>
-            <div className={classes.statdiv}>
-              {type === "user" ? <Link href="#">50 following</Link> : null}
+            </div> */}
+          <div className={classes.statdiv}>
+            {type === "user" ? (
+              <Link href="#">{data.People_I_follow.length} following</Link>
+            ) : null}
 
-              <Link href="#">23 followers</Link>
-            </div>
-          </Typography>
+            <Link href="#">{data.People_that_follow_me.length} followers</Link>
+          </div>
         </Paper>
       )}
       {type === "user" ? null : <PostForm onSubmit={handleSubmit} />}
 
-      {props.posts.length !== 0 ? (
+      {posts.length !== 0 ? (
         props.posts.map(el => {
           return <Cards key={el._id} data={el} />;
         })
@@ -85,6 +129,7 @@ const mapStatetoProps = state => {
   return {
     posts: state.auth.profilePosts,
     data: state.auth.profileData,
+    user: state.auth.user,
   };
 };
 const mapDispatchtoProps = dispatch => {

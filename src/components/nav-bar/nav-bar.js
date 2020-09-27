@@ -1,7 +1,7 @@
 import React from "react";
 import NavBarV from "./nav-bar-view";
 import { connect } from "react-redux";
-import { LOGIN, LOGOUT } from "../../store/actions";
+import { LOGIN, LOGOUT, logout_server } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 
 function NavBar(props) {
@@ -29,7 +29,7 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
   return {
     onLogIn: () => dispatch({ type: LOGIN }),
-    onLogOut: () => dispatch({ type: LOGOUT }),
+    onLogOut: () => dispatch(logout_server()),
   };
 };
 

@@ -4,7 +4,7 @@ import styles from "./login.module.css";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import { login_to_api } from "../../api/postData";
 import { useHistory } from "react-router-dom";
-import { LOGIN, LOGOUT, login, logout } from "../../store/actions";
+import { LOGIN, LOGOUT, login, logout, checkLog } from "../../store/actions";
 import { connect } from "react-redux";
 
 function Login(props) {
@@ -49,7 +49,9 @@ function Login(props) {
         <Grid item xs={12} sm={6} lg={4}>
           <Paper className={styles.wrapper}>
             <div className={styles.text}>
-              <Typography variant="h5">Create your acount </Typography>
+              <Typography color="textPrimary" variant="h5">
+                Login here
+              </Typography>
             </div>
             <Form
               errors={err}
@@ -70,7 +72,7 @@ const mapStatetoProps = state => {
 };
 const mapDispatchtoProps = dispatch => {
   return {
-    onLogIn: () => dispatch(login()),
+    onLogIn: () => dispatch(checkLog()),
     onLogOut: () => dispatch(logout()),
   };
 };

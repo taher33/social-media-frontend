@@ -5,10 +5,11 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import { useStyles } from "./navbarCssJs";
+import { useHistory } from "react-router-dom";
 
 export default function NavBarV({ handleLog, isLoged }) {
   const classes = useStyles();
-
+  const history = useHistory();
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -21,7 +22,14 @@ export default function NavBarV({ handleLog, isLoged }) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography
+            className={classes.title}
+            variant="h6"
+            noWrap
+            onClick={() => {
+              history.push("/");
+            }}
+          >
             Facebook
           </Typography>
           <div className={classes.search}>
