@@ -2,11 +2,12 @@ import axios from "axios";
 
 export const creatUser = async ({ email, name, password, passwordConf }) => {
   try {
-    const { data } = await axios.post("http://localhost:5000/users/", {
-      email,
-      name,
-      password,
-      passwordConf,
+    const { data } = await axios({
+      method: "POST",
+      url: "http://localhost:5000/users",
+      withCredentials: true,
+
+      data: { email, password, name, passwordConf },
     });
     return data;
   } catch (err) {

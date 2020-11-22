@@ -18,12 +18,9 @@ function Login(props) {
   });
   //this func sends a request to the api
   const handleApi = async data => {
-    console.log("before try");
     try {
       //wating for the response of the api
       const res = await login_to_api(data);
-      console.log(res);
-      console.log(document.cookie);
       //login with redux
       props.onLogIn();
       //go to the home page

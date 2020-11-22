@@ -6,8 +6,10 @@ import { creatUser } from "../../api/postData";
 import { Link, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { checkLog, logout_server } from "../../store/actions";
 
-export default function Form(props) {
+function Form(props) {
   const history = useHistory();
   const { register, handleSubmit, watch, errors } = useForm();
   const [err, seterr] = useState({
@@ -16,7 +18,11 @@ export default function Form(props) {
   });
   const handleApi = async user => {
     const res = await creatUser(user);
-    if (res.status === "success") history.push("/");
+    console.log(res);
+    if (res.status === "success") {
+      props.onLogIn();
+      history.push("/");
+    }
   };
   const onSubmit = data => {
     if (data.password !== data.passwordConf) {
@@ -89,3 +95,17 @@ export default function Form(props) {
   );
 }
 // add checklog here
+const mapStatetoProps = state => {
+  return {
+    logedIn: state.auth.logedIn,
+  };
+};
+
+const mapDispatchtoProps = dispatch => {
+  return {
+    onLogIn: () => dispatch(checkLog()),
+    onLogOut: () => dispatch(logout_server()),
+  };
+};
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(Form);

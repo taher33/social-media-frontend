@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Form from "./Form";
 import { connect } from "react-redux";
-import { LOGIN, LOGOUT } from "../../store/actions";
+import { checkLog, LOGIN, LOGOUT, logout_server } from "../../store/actions";
 import { useHistory } from "react-router-dom";
 import { useStyles } from "./landing-css";
 import styles from "./landing.module.css";
@@ -40,8 +40,8 @@ const mapStatetoProps = state => {
 };
 const mapDispatchtoProps = dispatch => {
   return {
-    onLogIn: () => dispatch({ type: LOGIN }),
-    onLogOut: () => dispatch({ type: LOGOUT }),
+    onLogIn: () => dispatch(checkLog()),
+    onLogOut: () => dispatch(logout_server()),
   };
 };
 
