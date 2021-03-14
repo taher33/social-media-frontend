@@ -4,7 +4,7 @@ export const creatUser = async ({ email, name, password, passwordConf }) => {
   try {
     const { data } = await axios({
       method: "POST",
-      url: "http://localhost:5000/users",
+      url: "https://social-app-taher.herokuapp.com/users",
       withCredentials: true,
 
       data: { email, password, name, passwordConf },
@@ -15,7 +15,7 @@ export const creatUser = async ({ email, name, password, passwordConf }) => {
   }
 };
 
-export const createPost = async post => {
+export const createPost = async (post) => {
   const formData = new FormData();
 
   formData.append("content", post.post);
@@ -25,7 +25,7 @@ export const createPost = async post => {
     const result = await axios({
       method: "POST",
       withCredentials: true,
-      url: "http://localhost:5000/posts",
+      url: "https://social-app-taher.herokuapp.com/posts",
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -42,7 +42,7 @@ export const createPost = async post => {
 export const login_to_api = async ({ email, password }) => {
   const { data } = await axios({
     method: "POST",
-    url: "http://localhost:5000/users/login",
+    url: "https://social-app-taher.herokuapp.com/users/login",
     withCredentials: true,
     headers: {
       crossDomain: true,
@@ -58,7 +58,7 @@ export const createComment = async (id, text) => {
   try {
     const { data } = await axios({
       method: "POST",
-      url: `http://localhost:5000/posts/${id}/comment`,
+      url: `https://social-app-taher.herokuapp.com/posts/${id}/comment`,
       withCredentials: true,
       data: { text: text.reply },
     });
@@ -71,12 +71,12 @@ export const createComment = async (id, text) => {
   }
 };
 
-export const create_page = async name => {
+export const create_page = async (name) => {
   console.log(name);
   try {
     const { data } = await axios({
       method: "POST",
-      url: "http://localhost:5000/pages",
+      url: "https://social-app-taher.herokuapp.com/pages",
       withCredentials: true,
       data: {
         name,

@@ -1,5 +1,5 @@
 import axios from "axios";
-export const likePosts = async id => {
+export const likePosts = async (id) => {
   try {
     await axios({
       method: "PATCH",
@@ -7,14 +7,14 @@ export const likePosts = async id => {
       data: {
         postId: id,
       },
-      url: "http://localhost:5000/posts",
+      url: "https://social-app-taher.herokuapp.com/posts",
     });
   } catch (err) {
     console.log(err);
   }
 };
 
-export const register_follower_db = async email => {
+export const register_follower_db = async (email) => {
   try {
     await axios({
       method: "PATCH",
@@ -22,7 +22,7 @@ export const register_follower_db = async email => {
       data: {
         email,
       },
-      url: "http://localhost:5000/users/follow",
+      url: "https://social-app-taher.herokuapp.com/users/follow",
     });
   } catch (err) {
     console.log(err);

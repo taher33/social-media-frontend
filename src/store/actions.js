@@ -6,7 +6,7 @@ export const POSTS = "POSTS";
 export const PROFILE_POSTS = "PROFILE_POSTS";
 export const PROFILE_DATA = "PROFILE_DATA";
 
-export const login = user => {
+export const login = (user) => {
   return {
     type: LOGIN,
     payload: user,
@@ -19,47 +19,47 @@ export const logout = () => {
   };
 };
 
-export const logout_server = () => dispatch => {
+export const logout_server = () => (dispatch) => {
   Axios({
     method: "DELETE",
     withCredentials: true,
-    url: "http://localhost:5000/users/logout",
+    url: "https://social-app-taher.herokuapp.com/users/logout",
   })
-    .then(res => {
+    .then((res) => {
       dispatch(logout());
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err.response.data);
     });
 };
 
-export const checkLog = () => dispatch => {
-  Axios.get("http://localhost:5000/users/checkLogin", {
+export const checkLog = () => (dispatch) => {
+  Axios.get("https://social-app-taher.herokuapp.com/users/checkLogin", {
     data: { checkLogIn: "true" },
     withCredentials: true,
   })
-    .then(res => {
+    .then((res) => {
       console.log(res);
       dispatch(login(res.data.user));
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
     });
 };
 
-const storePosts = posts => {
+const storePosts = (posts) => {
   return {
     type: POSTS,
     payload: posts,
   };
 };
-const storeProfilePosts = posts => {
+const storeProfilePosts = (posts) => {
   return {
     type: PROFILE_POSTS,
     payload: posts,
   };
 };
-const storeProfileData = data => {
+const storeProfileData = (data) => {
   return {
     type: PROFILE_DATA,
     payload: data,
@@ -67,46 +67,46 @@ const storeProfileData = data => {
 };
 
 export const getPosts = () => {
-  return dispatch => {
-    Axios.get("http://localhost:5000/posts", {
+  return (dispatch) => {
+    Axios.get("https://social-app-taher.herokuapp.com/posts", {
       withCredentials: true,
       // timeout: 1000,
     })
-      .then(res => {
+      .then((res) => {
         dispatch(storePosts(res.data.posts));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 };
 
-export const getProfilePosts = id => {
-  return dispatch => {
+export const getProfilePosts = (id) => {
+  return (dispatch) => {
     console.log(id);
-    Axios.get(`http://localhost:5000/posts?user=${id}`, {
+    Axios.get(`https://social-app-taher.herokuapp.com/posts?user=${id}`, {
       withCredentials: true,
       // params: { profile: true },
     })
-      .then(res => {
+      .then((res) => {
         dispatch(storeProfilePosts(res.data.posts));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 };
 
-export const getProfilePosts_pages = id => {
-  return dispatch => {
-    Axios.get(`http://localhost:5000/pages/${id}`, {
+export const getProfilePosts_pages = (id) => {
+  return (dispatch) => {
+    Axios.get(`https://social-app-taher.herokuapp.com/pages/${id}`, {
       withCredentials: true,
     })
-      .then(res => {
+      .then((res) => {
         dispatch(storeProfilePosts(res.data.pagePosts));
         dispatch(storeProfileData(res.data.page));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };

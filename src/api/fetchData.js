@@ -1,7 +1,9 @@
 import axios from "axios";
 export const fetchUsers = async () => {
   try {
-    const { data } = await axios.get("http://localhost:5000/users");
+    const { data } = await axios.get(
+      "https://social-app-taher.herokuapp.com/users"
+    );
     return data;
   } catch (err) {
     console.log(err);
@@ -12,7 +14,7 @@ export const fetchPosts = async () => {
   try {
     const {
       data: { posts },
-    } = await axios.get("http://localhost:5000/posts", {
+    } = await axios.get("https://social-app-taher.herokuapp.com/posts", {
       withCredentials: true,
     });
     return posts;
@@ -23,20 +25,23 @@ export const fetchPosts = async () => {
 
 export const fetchPages = async () => {
   try {
-    const { data } = await axios.get("http://localhost:5000/pages", {
-      withCredentials: true,
-    });
+    const { data } = await axios.get(
+      "https://social-app-taher.herokuapp.com/pages",
+      {
+        withCredentials: true,
+      }
+    );
     return data;
   } catch (err) {
     return err.response.data;
   }
 };
 
-export const fetchOneUser = async id => {
+export const fetchOneUser = async (id) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url: "http://localhost:5000/users/one/" + id,
+      url: "https://social-app-taher.herokuapp.com/users/one/" + id,
 
       withCredentials: true,
     });
@@ -46,11 +51,11 @@ export const fetchOneUser = async id => {
   }
 };
 
-export const fetchOneUser_posts = async id => {
+export const fetchOneUser_posts = async (id) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url: "http://localhost:5000/posts/?user=" + id,
+      url: "https://social-app-taher.herokuapp.com/posts/?user=" + id,
 
       withCredentials: true,
     });
@@ -60,11 +65,11 @@ export const fetchOneUser_posts = async id => {
   }
 };
 
-export const fetchOnePage = async id => {
+export const fetchOnePage = async (id) => {
   try {
     const { data } = await axios({
       method: "GET",
-      url: "http://localhost:5000/pages/" + id,
+      url: "https://social-app-taher.herokuapp.com/pages/" + id,
 
       withCredentials: true,
     });

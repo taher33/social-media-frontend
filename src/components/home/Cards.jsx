@@ -67,7 +67,7 @@ export default function Cards({ data, client }) {
       <CardHeader
         avatar={
           <Avatar
-            src={`http://localhost:5000/post-imgs/${data.user.profileImg}`}
+            src={`https://social-app-taher.herokuapp.com/post-imgs/${data.user.profileImg}`}
             aria-label="recipe"
             className={classes.avatar}
           />
@@ -99,7 +99,7 @@ export default function Cards({ data, client }) {
       {data.photo.length === 0 ? null : (
         <CardMedia
           className={classes.media}
-          image={`http://localhost:5000/post-imgs/${data.photo}`}
+          image={`https://social-app-taher.herokuapp.com/post-imgs/${data.photo}`}
           title="an image"
         />
       )}

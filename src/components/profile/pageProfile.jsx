@@ -35,7 +35,7 @@ function PageProfile({ pageId }) {
         <Paper className={classes.root}>
           <img
             className={classes.coverImg}
-            src={`http://localhost:5000/users/${data.coverImg}`}
+            src={`https://social-app-taher.herokuapp.com/users/${data.coverImg}`}
           />
 
           <div className={classes.namediv}>
