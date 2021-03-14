@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -12,7 +12,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { useStyles } from "./home-css-js";
 import { useHistory } from "react-router-dom";
-import Comment_form from "../comment/comment-form";
+import Comment_Form from "../comment/comment-form";
 import { Menu, MenuItem } from "@material-ui/core";
 import { likePosts } from "../../api/patchData";
 
@@ -113,7 +113,7 @@ export default function Cards({ data, client }) {
         <IconButton aria-label="add to favorites" onClick={likeBtn}>
           <FavoriteIcon color={like ? "primary" : "disabled"} />
         </IconButton>
-        <Comment_form postId={data._id} name={data.user.name} />
+        <Comment_Form postId={data._id} name={data.user.name} />
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>

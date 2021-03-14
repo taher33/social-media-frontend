@@ -13,9 +13,9 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 import { useForm } from "react-hook-form";
 import { create_page } from "../../api/postData";
 
-function Create_page() {
+function Create_Page() {
   const [open, setOpen] = React.useState(false);
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,4 +75,4 @@ function Create_page() {
   );
 }
 
-export default Create_page;
+export default Create_Page;

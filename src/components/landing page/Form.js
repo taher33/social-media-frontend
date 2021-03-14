@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import styles from "./landing.module.css";
@@ -11,12 +11,12 @@ import { checkLog, logout_server } from "../../store/actions";
 
 function Form(props) {
   const history = useHistory();
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [err, seterr] = useState({
     error: false,
     message: "",
   });
-  const handleApi = async user => {
+  const handleApi = async (user) => {
     const res = await creatUser(user);
     console.log(res);
     if (res.status === "success") {
@@ -24,7 +24,7 @@ function Form(props) {
       history.push("/");
     }
   };
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     if (data.password !== data.passwordConf) {
       seterr({ ...err, error: true, message: "wrong password" });
       return;
@@ -95,13 +95,13 @@ function Form(props) {
   );
 }
 // add checklog here
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     logedIn: state.auth.logedIn,
   };
 };
 
-const mapDispatchtoProps = dispatch => {
+const mapDispatchtoProps = (dispatch) => {
   return {
     onLogIn: () => dispatch(checkLog()),
     onLogOut: () => dispatch(logout_server()),

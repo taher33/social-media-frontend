@@ -1,9 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  Modal,
-  Fade,
-  Paper,
-  Typography,
   Button,
   TextField,
   Dialog,
@@ -12,15 +8,14 @@ import {
   DialogContentText,
   DialogActions,
 } from "@material-ui/core";
-import styles from "./comment.module.css";
 import CommentIcon from "@material-ui/icons/Comment";
 import IconButton from "@material-ui/core/IconButton";
-import Backdrop from "@material-ui/core/Backdrop";
-import { useForm } from "react-hook-form";
-import { createComment } from "../../api/postData";
 
-function Comment_form(props) {
-  const { register, handleSubmit, watch, errors } = useForm();
+// import { useForm } from "react-hook-form";
+// import { createComment } from "../../api/postData";
+
+function Comment_Form(props) {
+  
 
   const [open, setOpen] = React.useState(false);
 
@@ -31,11 +26,11 @@ function Comment_form(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  const submit = async data => {
-    const res = await createComment(props.postId, data);
-    console.log(res.data);
-    if (!res.error) setOpen(false);
-  };
+  // const submit = async data => {
+  //   const res = await createComment(props.postId, data);
+  //   console.log(res.data);
+  //   if (!res.error) setOpen(false);
+  // };
 
   return (
     <div>
@@ -75,7 +70,7 @@ function Comment_form(props) {
   );
 }
 
-export default Comment_form;
+export default Comment_Form;
 
 // <div>
 // <IconButton aria-label="add to favorites">

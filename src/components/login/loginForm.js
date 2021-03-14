@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { Divider, Link, Typography } from "@material-ui/core";
@@ -7,7 +7,7 @@ import styles from "./login.module.css";
 import { useHistory } from "react-router-dom";
 
 export default function Form(props) {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const history = useHistory();
 
   return (
