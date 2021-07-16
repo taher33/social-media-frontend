@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import PostForm from "../home/postingForm";
 import { useLocation, useParams } from "react-router-dom";
 import {
-  fetchOnePage,
+ 
   fetchOneUser,
   fetchOneUser_posts,
 } from "../../api/fetchData";
@@ -18,15 +18,9 @@ function PageProfile({ pageId }) {
 
   const [posts, setPosts] = useState([]);
 
-  const getPageData = async () => {
-    const res = await fetchOnePage(pageId);
-    setData(res.page);
-    setPosts(res.pagePosts);
-  };
+  
 
-  useEffect(() => {
-    getPageData();
-  }, [pageId]);
+  
   console.log(posts, data, pageId);
 
   return (

@@ -7,13 +7,10 @@ import { useForm } from "react-hook-form";
 export default function PostForm(props) {
   const classes = useStyles();
   const { register, handleSubmit, watch, errors } = useForm();
-  // const onSubmit = data => {
-  //   console.log(data);
-  // };
-  // console.log(watch("post"));
+
   return (
     <Paper variant="outlined" className={classes.uperDiv}>
-      <img src={require("./img/helo.jpg")} className={classes.img} />
+      {/* <img src={require("./img/helo.jpg")} className={classes.img} /> */}
       <form
         onSubmit={handleSubmit(props.onSubmit)}
         className={classes.form}

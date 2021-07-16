@@ -30,17 +30,17 @@ function App(props) {
       <Switch>
         <Route component={LandingC} path="/signUp" />
         <Route component={Login} path="/logIn" />
-        <Grid container className="content" spacing={5}>
+        <Grid container spacing={2} justifyContent="center">
           <Grid item sm={3}>
             <LeftNav />
           </Grid>
-          <Grid item xs={12} sm={5} container justify="center">
+          <Grid item xs={12} sm={8} md={5} container>
             <Route exact component={Home} path="/" />
             <Route component={Profile} path="/profile/:type" />
             <Route component={Comment} path="/comment/:id" />
             <Route component={Post} path="/singlePost/:id" />
           </Grid>
-          <Grid item xs={false} sm={3}>
+          <Grid item sm={3}>
             {props.logedIn ? <Right_bar /> : null}
           </Grid>
         </Grid>
@@ -49,15 +49,13 @@ function App(props) {
   );
 }
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     logedIn: state.auth.logedIn,
   };
 };
-const mapDispatchtoProps = dispatch => {
+const mapDispatchtoProps = (dispatch) => {
   return {
-    // onLogIn: () => dispatch({ type: LOGIN }),
-    // onLogOut: () => dispatch({ type: LOGOUT }),
     checkLogState: () => dispatch(checkLog()),
   };
 };

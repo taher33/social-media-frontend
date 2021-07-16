@@ -31,7 +31,7 @@ export default function Cards({ data, client }) {
     return data.likes.length;
   });
   //this came with material-ui
-  const handleClickSettings = event => {
+  const handleClickSettings = (event) => {
     setAnchorEl(event.currentTarget);
   };
   //this came with material-ui
@@ -39,21 +39,21 @@ export default function Cards({ data, client }) {
     setAnchorEl(null);
   };
   //this func handles clicking on the title takes the user to the post with comments
-  const handleClick = id => {
+  const handleClick = (id) => {
     history.push("/singlePost/" + id);
     console.log(id);
   };
-  const onLike = async id => {
+  const onLike = async (id) => {
     await likePosts(id);
   };
   // this func handles the frontend part of the likeBtn
   const likeBtn = () => {
     //this func came from props
     onLike(data._id);
-    setLike(state => {
+    setLike((state) => {
       return !state;
     });
-    setLikeNum(prevState => {
+    setLikeNum((prevState) => {
       if (like) {
         return prevState - 1;
       } else {
@@ -67,7 +67,7 @@ export default function Cards({ data, client }) {
       <CardHeader
         avatar={
           <Avatar
-            src={`https://social-app-taher.herokuapp.com/post-imgs/${data.user.profileImg}`}
+            // src={`https://social-app-taher.herokuapp.com/post-imgs/${data.user.profileImg}`}
             aria-label="recipe"
             className={classes.avatar}
           />

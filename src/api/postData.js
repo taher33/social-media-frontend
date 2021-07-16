@@ -1,17 +1,17 @@
 import axios from "axios";
+import { axios_instance } from "../utils/axios";
 
 export const creatUser = async ({ email, name, password, passwordConf }) => {
   try {
-    const { data } = await axios({
+    const { data } = await axios_instance(true)({
       method: "POST",
-      url: "https://social-app-taher.herokuapp.com/users",
-      withCredentials: true,
+      url: "/users",
 
       data: { email, password, name, passwordConf },
     });
     return data;
   } catch (err) {
-    return err;
+    return err.response.data;
   }
 };
 
@@ -22,10 +22,10 @@ export const createPost = async (post) => {
   formData.append("picture", post.picture[0]);
   console.log(post.picture[0]);
   try {
-    const result = await axios({
+    const result = await axios_instance(true)({
       method: "POST",
-      withCredentials: true,
-      url: "https://social-app-taher.herokuapp.com/posts",
+
+      url: "/posts",
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -40,10 +40,10 @@ export const createPost = async (post) => {
 };
 
 export const login_to_api = async ({ email, password }) => {
-  const { data } = await axios({
+  const { data } = await axios_instance(true)({
     method: "POST",
-    url: "https://social-app-taher.herokuapp.com/users/login",
-    withCredentials: true,
+    url: "users/login",
+
     headers: {
       crossDomain: true,
     },
@@ -53,13 +53,12 @@ export const login_to_api = async ({ email, password }) => {
 };
 
 export const createComment = async (id, text) => {
-  console.log(text.reply);
   let error = false;
   try {
-    const { data } = await axios({
+    const { data } = await axios(true)({
       method: "POST",
-      url: `https://social-app-taher.herokuapp.com/posts/${id}/comment`,
-      withCredentials: true,
+      url: `posts/${id}/comment`,
+
       data: { text: text.reply },
     });
 
@@ -71,18 +70,18 @@ export const createComment = async (id, text) => {
   }
 };
 
-export const create_page = async (name) => {
-  console.log(name);
-  try {
-    const { data } = await axios({
-      method: "POST",
-      url: "https://social-app-taher.herokuapp.com/pages",
-      withCredentials: true,
-      data: {
-        name,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+// export const create_page = async (name) => {
+//   console.log(name);
+//   try {
+//     const { data } = await axios({
+//       method: "POST",
+//       url: "https://social-app-taher.herokuapp.com/pages",
+//       withCredentials: true,
+//       data: {
+//         name,
+//       },
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };

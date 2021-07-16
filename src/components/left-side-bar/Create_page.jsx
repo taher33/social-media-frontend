@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import { useForm } from "react-hook-form";
-import { create_page } from "../../api/postData";
 
 function Create_Page() {
   const [open, setOpen] = React.useState(false);
@@ -25,9 +24,8 @@ function Create_Page() {
     setOpen(false);
   };
 
-  const submitForm = async data => {
+  const submitForm = async (data) => {
     console.log(data);
-    await create_page(data.name);
   };
 
   return (
@@ -58,7 +56,6 @@ function Create_Page() {
               id="name"
               label="page name"
               type="text"
-              fullWidth
             />
           </DialogContent>
           <DialogActions>

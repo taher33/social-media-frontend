@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useStyles } from "./profile-css";
 import { Paper, Button, Link, Typography } from "@material-ui/core";
 import Cards from "../home/Cards";
-import { getProfilePosts, getProfilePosts_pages } from "../../store/actions";
+import { getProfilePosts} from "../../store/actions";
 import { connect } from "react-redux";
 import PostForm from "../home/postingForm";
 import { useLocation, useParams } from "react-router-dom";
 import {
-  fetchOnePage,
+  
   fetchOneUser,
   fetchOneUser_posts,
 } from "../../api/fetchData";

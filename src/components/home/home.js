@@ -9,14 +9,13 @@ import { createPost } from "../../api/postData";
 function Home(props) {
   const posts = props.posts;
 
-  const handleSubmit = async data => {
+  const handleSubmit = async (data) => {
     const res = await createPost(data);
   };
 
   useEffect(() => {
     props.getPosts_inState();
   }, []);
-  console.log(posts);
 
   return (
     <>
@@ -31,7 +30,7 @@ function Home(props) {
         </Grid>
         <Grid item style={{ width: "100%" }}>
           {posts.length !== 0 ? (
-            posts.map(el => {
+            posts.map((el) => {
               return <Cards client={props.user._id} data={el} />;
             })
           ) : (
@@ -43,24 +42,13 @@ function Home(props) {
   );
 }
 
-// const mapStatetoProps = state => {
-//   return {
-//     logedIn: state.auth.logedIn,
-//   };
-// };
-// const mapDispatchtoProps = dispatch => {
-//   return {
-//     onLogIn: () => dispatch({ type: LOGIN }),
-//     onLogOut: () => dispatch({ type: LOGOUT }),
-//   };
-// };
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     posts: state.auth.posts,
     user: state.auth.user,
   };
 };
-const mapDispatchtoProps = dispatch => {
+const mapDispatchtoProps = (dispatch) => {
   return {
     getPosts_inState: () => dispatch(getPosts()),
   };

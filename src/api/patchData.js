@@ -1,30 +1,30 @@
 import axios from "axios";
+import { axios_instance } from "../utils/axios";
 export const likePosts = async (id) => {
   try {
-    await axios({
+    await axios_instance(true)({
       method: "PATCH",
-      withCredentials: true,
+      url: "posts",
       data: {
         postId: id,
       },
-      url: "https://social-app-taher.herokuapp.com/posts",
     });
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data);
   }
 };
 
 export const register_follower_db = async (email) => {
   try {
-    await axios({
+    await axios_instance(true)({
       method: "PATCH",
-      withCredentials: true,
+
       data: {
         email,
       },
-      url: "https://social-app-taher.herokuapp.com/users/follow",
+      url: "users/follow",
     });
   } catch (err) {
-    console.log(err);
+    console.log(err.response.data);
   }
 };
