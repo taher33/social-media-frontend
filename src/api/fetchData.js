@@ -11,8 +11,12 @@ export const fetchUsers = async () => {
     console.log(err.response.data);
   }
 };
-//still needs work
+
 export const fetchPosts = async () => {
+  let result = {
+    posts: [],
+    err: {},
+  };
   try {
     const {
       data: { posts },
@@ -20,9 +24,12 @@ export const fetchPosts = async () => {
       method: "GET",
       url: "posts",
     });
-    return posts;
+    result.posts = posts;
+
+    return result;
   } catch (err) {
-    return err.response.data;
+    result.err = err.response.data;
+    return result;
   }
 };
 

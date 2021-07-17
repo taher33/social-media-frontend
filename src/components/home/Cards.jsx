@@ -1,20 +1,22 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { likePosts } from "../../api/patchData";
+import { server_url } from "../../constants";
+import Comment_Form from "../comment/comment-form";
+import { useStyles } from "./home-css-js";
+//mui imports
+import { Menu, MenuItem } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import { useStyles } from "./home-css-js";
-import { useHistory } from "react-router-dom";
-import Comment_Form from "../comment/comment-form";
-import { Menu, MenuItem } from "@material-ui/core";
-import { likePosts } from "../../api/patchData";
+import ShareIcon from "@material-ui/icons/Share";
 
 export default function Cards({ data, client }) {
   //material-ui css in js
@@ -40,7 +42,7 @@ export default function Cards({ data, client }) {
   };
   //this func handles clicking on the title takes the user to the post with comments
   const handleClick = (id) => {
-    history.push("/singlePost/" + id);
+    // history.push("/singlePost/" + id);
     console.log(id);
   };
   const onLike = async (id) => {
@@ -67,7 +69,7 @@ export default function Cards({ data, client }) {
       <CardHeader
         avatar={
           <Avatar
-            // src={`https://social-app-taher.herokuapp.com/post-imgs/${data.user.profileImg}`}
+            src={`${server_url}${data.user.profileImg}`}
             aria-label="recipe"
             className={classes.avatar}
           />
@@ -94,12 +96,11 @@ export default function Cards({ data, client }) {
             <Typography>{data.user.name}</Typography>
           </div>
         }
-        // subheader="September 14, 2016"
       />
       {data.photo.length === 0 ? null : (
         <CardMedia
           className={classes.media}
-          image={`https://social-app-taher.herokuapp.com/post-imgs/${data.photo}`}
+          image={`${server_url}${data.photo}`}
           title="an image"
         />
       )}

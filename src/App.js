@@ -30,11 +30,11 @@ function App(props) {
       <Switch>
         <Route component={LandingC} path="/signUp" />
         <Route component={Login} path="/logIn" />
-        <Grid container spacing={2} justifyContent="center">
+        <Grid container spacing={1} justifyContent="center">
           <Grid item sm={3}>
             <LeftNav />
           </Grid>
-          <Grid item xs={12} sm={8} md={5} container>
+          <Grid item xs={12} sm={9} md={5} container>
             <Route exact component={Home} path="/" />
             <Route component={Profile} path="/profile/:type" />
             <Route component={Comment} path="/comment/:id" />

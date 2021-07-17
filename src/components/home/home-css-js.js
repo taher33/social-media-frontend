@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%", //480
     marginBottom: "10px",
@@ -19,35 +19,39 @@ export const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
-  avatar: {},
-  uperDiv: {
-    display: "flex",
-    width: "99%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
-  },
-  form: {
-    width: "80%",
-  },
 
-  textField: {
-    width: "100%",
-    margin: "3%",
-    padding: "1%",
+  paper: {
+    display: "flex",
+    padding: "0.5rem 1rem",
+    alignItems: "center",
   },
   img: {
-    height: "50px",
+    height: "3.5rem",
     borderRadius: "50%",
-    marginLeft: "10px",
-    marginTop: "10px",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
   },
 
   actionDiv: {
     display: "flex",
-    justifyContent: "space-around",
+    // alignContent: "space-between",
+    alignItems: "center",
   },
+
+  textField: {
+    marginTop: "0.5rem",
+  },
+
   imgIcon: {
-    margin: "auto",
+    marginLeft: "auto",
+    marginRight: "1rem",
   },
   btn: {},
+  postingForm: {
+    width: "100%",
+    marginBottom: "1rem",
+  },
 }));
