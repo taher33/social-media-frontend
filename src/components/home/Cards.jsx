@@ -41,9 +41,8 @@ export default function Cards({ data, client }) {
     setAnchorEl(null);
   };
   //this func handles clicking on the title takes the user to the post with comments
-  const handleClick = (id) => {
+  const handleClick = () => {
     // history.push("/singlePost/" + id);
-    console.log(id);
   };
   const onLike = async (id) => {
     await likePosts(id);
@@ -92,7 +91,7 @@ export default function Cards({ data, client }) {
           </>
         }
         title={
-          <div onClick={() => handleClick(data._id)}>
+          <div onClick={handleClick}>
             <Typography>{data.user.name}</Typography>
           </div>
         }

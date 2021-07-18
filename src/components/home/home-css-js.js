@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%", //480
-    marginBottom: "10px",
+    marginBottom: "1rem",
   },
   media: {
     height: 0,
@@ -33,11 +33,12 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
+    marginLeft: "1rem",
   },
 
   actionDiv: {
     display: "flex",
-    // alignContent: "space-between",
+    marginTop: ".5rem",
     alignItems: "center",
   },
 
@@ -49,7 +50,9 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "1rem",
   },
-  btn: {},
+  btn: {
+    fontWeight: "bold",
+  },
   postingForm: {
     width: "100%",
     marginBottom: "1rem",

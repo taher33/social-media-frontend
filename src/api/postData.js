@@ -11,7 +11,7 @@ export const creatUser = async ({ email, name, password, passwordConf }) => {
     });
     return data;
   } catch (err) {
-    return err.response.data;
+    console.log(err.response.data);
   }
 };
 
@@ -20,7 +20,7 @@ export const createPost = async (post) => {
 
   formData.append("content", post.post);
   formData.append("picture", post.picture[0]);
-  console.log(post.picture[0]);
+
   try {
     const result = await axios_instance(true)({
       method: "POST",
@@ -52,36 +52,19 @@ export const login_to_api = async ({ email, password }) => {
   return data;
 };
 
-export const createComment = async (id, text) => {
+export const createComment = async (id, body) => {
   let error = false;
   try {
-    const { data } = await axios(true)({
+    const { data } = await axios_instance(true)({
       method: "POST",
-      url: `posts/${id}/comment`,
+      url: "posts/" + id + "/comment",
 
-      data: { text: text.reply },
+      data: { text: body },
     });
 
     return { data, error };
   } catch (err) {
-    console.log(err.response.data);
     error = true;
-    return error;
+    return { error, data: {} };
   }
 };
-
-// export const create_page = async (name) => {
-//   console.log(name);
-//   try {
-//     const { data } = await axios({
-//       method: "POST",
-//       url: "https://social-app-taher.herokuapp.com/pages",
-//       withCredentials: true,
-//       data: {
-//         name,
-//       },
-//     });
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };

@@ -13,9 +13,9 @@ import { useForm } from "react-hook-form";
 import { server_url } from "../../constants";
 import { useSelector } from "react-redux";
 
-export default function PostForm(props) {
+export default function PostForm({ submitForm }) {
   const state = useSelector((state) => state);
-  console.log(state);
+
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
 
@@ -26,7 +26,7 @@ export default function PostForm(props) {
         className={classes.img}
       />
       <form
-        onSubmit={handleSubmit(props.onSubmit)}
+        onSubmit={handleSubmit(submitForm)}
         className={classes.form}
         encType="multipart/form-data"
       >
@@ -44,7 +44,6 @@ export default function PostForm(props) {
             <IconButton component="label" className={classes.imgIcon}>
               <>
                 <PermMediaIcon />
-
                 <input
                   type="file"
                   style={{ display: "none" }}
