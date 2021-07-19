@@ -1,62 +1,69 @@
 import React, { useEffect, useState } from "react";
+import Cards from "../home/Cards";
 import { useStyles } from "./profile-css";
 import { Paper, Button, Link, Typography } from "@material-ui/core";
-import Cards from "../home/Cards";
-import { getProfilePosts} from "../../store/actions";
-import { connect } from "react-redux";
-import PostForm from "../home/postingForm";
-import { useLocation, useParams } from "react-router-dom";
-import {
-  
-  fetchOneUser,
-  fetchOneUser_posts,
-} from "../../api/fetchData";
+import { fetchOneUser, fetchOneUser_posts } from "../../api/fetchData";
 import { register_follower_db } from "../../api/patchData";
+import { useSelector } from "react-redux";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { server_url } from "../../constants";
+import { useHistory } from "react-router-dom";
 
 function ProfileUser({ profileId }) {
   const classes = useStyles();
-  const [data, setData] = useState({});
-
-  const [posts, setPosts] = useState([]);
-
-  const getProfileData_user = async () => {
-    const res = await fetchOneUser(profileId);
-    setData(res.user);
-  };
-
-  const getProfilePosts_user = async () => {
-    const res = await fetchOneUser_posts(profileId);
-    setPosts(res.posts);
-  };
-
+  const router = useHistory();
+  const { _id } = useSelector((state) => state.auth.user);
+  const [userData, setUserData] = useState({});
+  const [posts, setposts] = useState([]);
+  const [page, setpage] = useState(2);
+  const [haseMore, sethaseMore] = useState(false);
+  const [loading, setloading] = useState(true);
+  let myProfile = false;
+  if (userData._id === _id) myProfile = true;
   useEffect(() => {
-    getProfileData_user();
+    const getProfileData_user = async () => {
+      const res = await fetchOneUser(profileId);
+      setUserData(res.user);
+    };
+    const getProfilePosts_user = async () => {
+      try {
+        const res = await fetchOneUser_posts(profileId);
+        setposts(res.posts);
+        sethaseMore(res.haseMore);
+        setloading(false);
+      } catch (error) {
+        router.push("");
+      }
+    };
     getProfilePosts_user();
-  }, [profileId]);
+    getProfileData_user();
+  }, [profileId, router]);
 
   const handleFollow = async () => {
-    await register_follower_db(data.email);
+    await register_follower_db(userData.email);
   };
-  console.log(posts, data, profileId);
+  if (loading) return <h3>loading...</h3>;
 
   return (
     <div>
-      {Object.keys(data).length === 0 || data === undefined ? null : (
-        <Paper className={classes.root}>
-          <img
-            className={classes.coverImg}
-            src={`http://localhost:5000/users/${data.cover}`}
-          />
+      <Paper className={classes.root}>
+        <img
+          className={classes.coverImg}
+          src={`${server_url}${userData.cover}`}
+          alt="cover-img"
+        />
 
-          <img
-            className={classes.profileImg}
-            src={`http://localhost:5000/users/${data.profileImg}`}
-          />
-          <div className={classes.namediv}>
-            <Typography variant="h6" className={classes.name}>
-              {data.name}
-            </Typography>
+        <img
+          className={classes.profileImg}
+          src={`${server_url}${userData.profileImg}`}
+          alt="profile img"
+        />
+        <div className={classes.namediv}>
+          <Typography variant="h6" className={classes.name}>
+            {userData.name}
+          </Typography>
 
+          {!myProfile ? (
             <Button
               variant="contained"
               color="primary"
@@ -65,23 +72,39 @@ function ProfileUser({ profileId }) {
             >
               follow
             </Button>
-          </div>
+          ) : null}
+        </div>
 
-          <div className={classes.statdiv}>
-            <Link href="#">{data.People_I_follow.length} following</Link>
+        <div className={classes.statdiv}>
+          <Link href="#">{userData.People_I_follow.length} following</Link>
 
-            <Link href="#">{data.People_that_follow_me.length} followers</Link>
-          </div>
-        </Paper>
-      )}
+          <Link href="#">
+            {userData.People_that_follow_me.length} followers
+          </Link>
+        </div>
+      </Paper>
 
-      {posts.length !== 0 ? (
-        posts.map(el => {
-          return <Cards key={el._id} data={el} />;
-        })
-      ) : (
-        <h1>loading posts</h1>
-      )}
+      <InfiniteScroll
+        dataLength={posts.length}
+        next={async () => {
+          const result = await fetchOneUser_posts(profileId, page);
+          const nextPosts = result.posts;
+          posts.push(...nextPosts);
+          if (result.haseMore) {
+            setpage(page + 1);
+          } else sethaseMore(false);
+        }}
+        hasMore={haseMore}
+        loader={<h4>Loading...</h4>}
+      >
+        {posts.length !== 0 ? (
+          posts.map((el) => {
+            return <Cards key={el._id} client={_id} data={el} />;
+          })
+        ) : (
+          <h1>loading posts</h1>
+        )}
+      </InfiniteScroll>
     </div>
   );
 }

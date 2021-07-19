@@ -11,7 +11,8 @@ function Home() {
   const classes = useStyles();
   const [posts, setposts] = useState([]);
   const [loading, setloading] = useState(true);
-
+  const [page, setpage] = useState(2);
+  const [haseMore, sethaseMore] = useState(false);
   const handleSubmit = async (formData) => {
     const { data } = await createPost(formData);
 
@@ -24,6 +25,7 @@ function Home() {
     fetchPosts()
       .then((res) => {
         setposts(res.posts);
+        sethaseMore(res.haseMore);
       })
       .finally(() => setloading(false));
   };
@@ -44,12 +46,24 @@ function Home() {
           ) : (
             <InfiniteScroll
               dataLength={posts.length}
-              // next={getPostData()}
-              // hasMore={true}
+              next={async () => {
+                const result = await fetchPosts(page);
+                const nextPosts = result.posts;
+                posts.push(...nextPosts);
+                if (result.haseMore) {
+                  setpage(page + 1);
+                } else sethaseMore(false);
+              }}
+              hasMore={haseMore}
               loader={<h4>Loading...</h4>}
             >
-              {posts.map((el) => {
-                return <Cards client={el.user._id} data={el} />;
+              {posts.map((el, index) => {
+                return (
+                  <>
+                    {index}
+                    <Cards client={el.user._id} data={el} />
+                  </>
+                );
               })}
             </InfiniteScroll>
           )}

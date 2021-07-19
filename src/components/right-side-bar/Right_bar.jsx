@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { fetchUsers } from "../../api/fetchData";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { server_url } from "../../constants";
+//mui imports
 import {
   List,
   ListItemSecondaryAction,
@@ -11,58 +16,52 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { fetchUsers } from "../../api/fetchData";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-
-import styles from "./raight-bar.module.css";
 import { useStyles } from "./right-bar-css";
 
 function Right_bar() {
-  const [pages, setPages] = useState([]);
   const [users, setUsers] = useState([]);
   const classes = useStyles();
+  const { _id } = useSelector((state) => state.auth.user);
 
-  const getUsers = async () => {
-    const res = await fetchUsers();
-    setUsers(res.result);
-  };
   useEffect(() => {
+    const getUsers = async () => {
+      const res = await fetchUsers();
+      const Users = res.result.filter((user) => {
+        return user._id !== _id;
+      });
+
+      setUsers(Users);
+    };
     getUsers();
-  }, []);
+  }, [_id]);
   return (
     <Paper className={classes.sideBar}>
-      <Typography variant="h5">people to follow</Typography>
+      <Typography variant="h5" className={classes.title}>
+        people to follow
+      </Typography>
       <Divider />
-      <List className={styles.root}>
+      <List className={classes.root}>
         {users.length === 0
           ? null
-          : users.map((user) => {
+          : users.map((user, index) => {
               return (
                 <div key={user._id}>
-                  <Link to={`/profile/user?id=${user._id}`}>
-                    <ListItem
-                      className={styles.listItme}
-                      key={user._id}
-                      role={undefined}
-                      dense
-                      button
-                    >
+                  <Link className={classes.link} to={`/profile/${user._id}`}>
+                    <ListItem className={classes.listItme} dense button>
                       <ListItemAvatar>
                         <Avatar
                           alt="Remy Sharp"
-                          // src={require("../home/img/helo.jpg")}
+                          src={`${server_url}${user.profileImg}`}
                         />
                       </ListItemAvatar>
-                      <ListItemText
-                        style={{ overflow: "hidden" }}
-                        primary={`${user.name}`}
-                      />
+                      <ListItemText primary={`${user.name}`} />
                       <ListItemSecondaryAction>
                         <Button color="primary">follow</Button>
                       </ListItemSecondaryAction>
                     </ListItem>
-                    <Divider variant="inset" component="li" />
+                    {users.length - 1 === index ? null : (
+                      <Divider variant="inset" component="li" />
+                    )}
                   </Link>
                 </div>
               );

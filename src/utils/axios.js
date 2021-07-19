@@ -1,7 +1,8 @@
 import axios from "axios";
+import { server_url } from "../constants";
 
 export const axios_instance = (withCredentials = false) =>
   axios.create({
-    baseURL: "http://localhost:5000/",
+    baseURL: server_url,
     withCredentials: withCredentials,
   });

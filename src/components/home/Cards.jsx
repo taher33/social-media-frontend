@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { likePosts } from "../../api/patchData";
 import { server_url } from "../../constants";
 import Comment_Form from "../comment/comment-form";
@@ -21,7 +20,6 @@ import ShareIcon from "@material-ui/icons/Share";
 export default function Cards({ data, client }) {
   //material-ui css in js
   const classes = useStyles();
-  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = useState(null);
   //state of the like btn
@@ -64,7 +62,7 @@ export default function Cards({ data, client }) {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} key={data._id}>
       <CardHeader
         avatar={
           <Avatar

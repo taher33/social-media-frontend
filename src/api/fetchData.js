@@ -1,5 +1,6 @@
-import axios from "axios";
+import { Router } from "react-router-dom";
 import { axios_instance } from "../utils/axios";
+
 export const fetchUsers = async () => {
   try {
     const { data } = await axios_instance()({
@@ -12,19 +13,21 @@ export const fetchUsers = async () => {
   }
 };
 
-export const fetchPosts = async () => {
+export const fetchPosts = async (page = 1) => {
   let result = {
     posts: [],
     err: {},
+    haseMore: false,
   };
   try {
     const {
-      data: { posts },
+      data: { posts, haseMore },
     } = await axios_instance(true)({
       method: "GET",
-      url: "posts",
+      url: "posts?page=" + page,
     });
     result.posts = posts;
+    result.haseMore = haseMore;
 
     return result;
   } catch (err) {
@@ -56,18 +59,21 @@ export const fetchOneUser = async (id) => {
     return data;
   } catch (err) {
     console.log(err.response.data);
+    console.log(Router);
+    throw err.response.data;
   }
 };
 
-export const fetchOneUser_posts = async (id) => {
+export const fetchOneUser_posts = async (id, page = 1) => {
   try {
     const { data } = await axios_instance(true)({
       method: "GET",
-      url: "posts/?user=" + id,
+      url: "posts/?user=" + id + "&page=" + page,
     });
     return data;
   } catch (err) {
     console.log(err.response.data);
+    return {};
   }
 };
 

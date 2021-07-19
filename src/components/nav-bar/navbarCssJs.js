@@ -49,6 +49,9 @@ export const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
+    "&:hover": {
+      curser: "pointer",
+    },
   },
   logBtn: {
     marginLeft: "5%",

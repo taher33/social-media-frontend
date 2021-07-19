@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import logo from './logo.svg';
 import "./App.css";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import LandingC from "./components/landing page/landingC";
 import Home from "./components/home/home";
 import Comment from "./components/comment/comment";
@@ -14,10 +14,12 @@ import { connect } from "react-redux";
 import Login from "./components/login/login";
 import { checkLog } from "./store/actions";
 import Right_bar from "./components/right-side-bar/Right_bar";
+import { useStyles } from "./appcss";
 
 function App(props) {
   props.checkLogState();
   const history = useHistory();
+  const classes = useStyles();
 
   if (props.logedIn) {
     history.push("/");
@@ -30,13 +32,20 @@ function App(props) {
       <Switch>
         <Route component={LandingC} path="/signUp" />
         <Route component={Login} path="/logIn" />
-        <Grid container spacing={1} justifyContent="center">
-          <Grid item sm={3}>
+        <Grid className={classes.main} container justifyContent="center">
+          <Grid item sm={2}>
             <LeftNav />
           </Grid>
-          <Grid item xs={12} sm={9} md={5} container>
+          <Grid
+            className={classes.insideGrid}
+            item
+            xs={11}
+            sm={9}
+            md={5}
+            container
+          >
             <Route exact component={Home} path="/" />
-            <Route component={Profile} path="/profile/:type" />
+            <Route component={Profile} path="/profile/:id" />
             <Route component={Comment} path="/comment/:id" />
             <Route component={Post} path="/singlePost/:id" />
           </Grid>

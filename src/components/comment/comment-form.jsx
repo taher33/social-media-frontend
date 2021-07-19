@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { createComment } from "../../api/postData";
+//mui imports
 import {
   Button,
   TextField,
@@ -7,11 +10,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
+  IconButton,
 } from "@material-ui/core";
 import CommentIcon from "@material-ui/icons/Comment";
-import IconButton from "@material-ui/core/IconButton";
-import { useForm } from "react-hook-form";
-import { createComment } from "../../api/postData";
 
 function Comment_Form({ postId }) {
   const [open, setOpen] = useState(false);
@@ -26,9 +27,7 @@ function Comment_Form({ postId }) {
   };
 
   const submitForm = async (data) => {
-    const {
-      data: {},
-    } = await createComment(postId, data.body);
+    await createComment(postId, data.body);
     console.log(data);
   };
 
@@ -37,11 +36,7 @@ function Comment_Form({ postId }) {
       <IconButton aria-label="add to favorites">
         <CommentIcon onClick={handleClickOpen} />
       </IconButton>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
+      <Dialog open={open} onClose={handleClose} fullWidth>
         <DialogTitle id="form-dialog-title">leave a comment</DialogTitle>
         <form onSubmit={handleSubmit(submitForm)}>
           <DialogContent>
