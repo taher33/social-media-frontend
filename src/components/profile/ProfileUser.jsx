@@ -24,6 +24,7 @@ function ProfileUser({ profileId }) {
     const getProfileData_user = async () => {
       const res = await fetchOneUser(profileId);
       setUserData(res.user);
+      console.log(userData);
     };
     const getProfilePosts_user = async () => {
       try {
@@ -42,7 +43,7 @@ function ProfileUser({ profileId }) {
   const handleFollow = async () => {
     await register_follower_db(userData.email);
   };
-  if (loading) return <h3>loading...</h3>;
+  if (loading || !userData.email) return <h3>loading...</h3>;
 
   return (
     <div>

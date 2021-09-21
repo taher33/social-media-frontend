@@ -1,15 +1,6 @@
-.form {
-  display: flex;
-  align-content: center;
-  flex-flow: column;
-  justify-content: space-around;
-  /* width: 100%; */
-  align-items: center;
-}
-
 .form div {
   margin-bottom: 0.5rem;
-  width: 80%;
+  /* width: 80%; */
 }
 
 .form div div {
@@ -24,14 +15,17 @@
 }
 
 .wrapper {
-  margin: 1.5rem;
-  height: 60vh;
-  padding-top: 1.5rem;
+  margin: 3rem auto;
+  height: max-content;
+  width: max-content;
+  padding: 2rem;
 }
 
 .text {
-  color: rgba(27, 61, 214, 0.884);
-  margin-bottom: 0.7rem;
+  color: rgb(27, 61, 214);
+  margin-bottom: 2rem;
+  font-weight: bolder;
+  text-transform: capitalize;
 }
 
 .action_form {

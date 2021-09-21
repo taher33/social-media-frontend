@@ -34,43 +34,36 @@ function Form(props) {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         name="email"
         required
-        // onChange={this.handleChange}
         type="email"
         id="standard-required"
         label="email"
-        // value={this.state.email}
         inputRef={register}
         variant="outlined"
       />
       <TextField
         name="name"
-        // onChange={this.handleChange}
         required
         inputRef={register}
         id="standard-required"
         label="full name"
-        // value={this.state.name}
         variant="outlined"
       />
       <TextField
         name="password"
         required
         inputRef={register}
-        // onChange={this.handleChange}
         id="standard-password-input"
         label="Password"
         type="password"
         autoComplete="current-password"
-        // value={this.state.password}
         variant="outlined"
       />
       <TextField
         name="passwordConf"
-        // onChange={this.handleChange}
         required
         id="standard-password-input"
         label="confirm password"
@@ -79,7 +72,6 @@ function Form(props) {
         autoComplete="current-password"
         error={err.error}
         helperText={err.message}
-        // value={this.state.passwordConf}
         variant="outlined"
       />
       <div className={styles.action_form}>
@@ -94,7 +86,7 @@ function Form(props) {
     </form>
   );
 }
-// add checklog here
+
 const mapStatetoProps = (state) => {
   return {
     logedIn: state.auth.logedIn,
