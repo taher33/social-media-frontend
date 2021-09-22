@@ -34,7 +34,7 @@ function Form(props) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <TextField
         name="email"
         required
@@ -43,6 +43,7 @@ function Form(props) {
         label="email"
         inputRef={register}
         variant="outlined"
+        fullWidth={true}
       />
       <TextField
         name="name"
@@ -51,6 +52,7 @@ function Form(props) {
         id="standard-required"
         label="full name"
         variant="outlined"
+        fullWidth={true}
       />
       <TextField
         name="password"
@@ -61,6 +63,7 @@ function Form(props) {
         type="password"
         autoComplete="current-password"
         variant="outlined"
+        fullWidth={true}
       />
       <TextField
         name="passwordConf"
@@ -73,6 +76,7 @@ function Form(props) {
         error={err.error}
         helperText={err.message}
         variant="outlined"
+        fullWidth={true}
       />
       <div className={styles.action_form}>
         <Button type="submit" variant="contained" color="primary">

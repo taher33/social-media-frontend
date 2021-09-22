@@ -1,8 +1,10 @@
+.form {
+  width: fit-content;
+}
 .form div {
   margin-bottom: 0.5rem;
   /* width: 80%; */
 }
-
 .form div div {
   width: 100%;
 }
@@ -15,9 +17,10 @@
 }
 
 .wrapper {
-  margin: 3rem auto;
+  margin: 4rem auto;
   height: max-content;
-  width: max-content;
+  width: 80%;
+  max-width: 600px;
   padding: 2rem;
 }
 
@@ -32,4 +35,5 @@
   display: flex;
   align-content: space-around;
   margin-top: 0.6rem;
+  width: 100%;
 }
