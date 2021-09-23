@@ -5,6 +5,10 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%", //480
     marginBottom: "1rem",
   },
+  avatar: {
+    textTransform: "uppercase",
+    background: "#ffa500",
+  },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9

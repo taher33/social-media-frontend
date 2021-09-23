@@ -5,28 +5,28 @@ export const useStyles = makeStyles({
     width: "100%",
     height: "fit-content",
     position: "relative",
-    marginBottom: "2px",
+    marginBottom: "2rem",
+    paddingBottom: "1rem",
   },
   coverImg: {
     width: "100%",
-    height: "15vw",
+    height: "10rem",
+    marginBottom: "1rem",
   },
   profileImg: {
-    width: "8vw",
-    height: "8vw",
+    width: "5rem",
+    height: "5rem",
     borderRadius: "50%",
     position: "absolute",
-    left: "0",
-    top: "11vw",
+    left: ".5rem",
+    top: "6rem",
   },
   namediv: {
     display: "flex",
-    marginLeft: "10vw",
-    textAlign: "center",
+    justifyContent: "space-around",
   },
   followBtn: {
-    width: "10rem",
-    marginRight: "5px",
+    // marginLeft: "auto",
   },
   aboutDiv: {
     marginTop: "2vw",
@@ -35,12 +35,7 @@ export const useStyles = makeStyles({
   statdiv: {
     marginTop: "1rem",
     display: "flex",
-    paddingBottom: "1vw",
-    paddingLeft: "2vw",
     justifyContent: "space-around",
   },
-  name: {
-    alignSelf: "center",
-    width: "80%",
-  },
+  name: {},
 });

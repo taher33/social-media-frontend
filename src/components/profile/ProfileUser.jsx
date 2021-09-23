@@ -19,30 +19,41 @@ function ProfileUser({ profileId }) {
   const [haseMore, sethaseMore] = useState(false);
   const [loading, setloading] = useState(true);
   let myProfile = false;
-  if (userData._id === _id) myProfile = true;
+
+  const getProfileData_user = async () => {
+    const res = await fetchOneUser(profileId);
+    setUserData(res.user);
+  };
+  const getProfilePosts_user = async () => {
+    try {
+      const res = await fetchOneUser_posts(profileId);
+      setposts(res.posts);
+      sethaseMore(res.haseMore);
+      setloading(false);
+    } catch (error) {
+      router.push("/");
+    }
+  };
   useEffect(() => {
-    const getProfileData_user = async () => {
-      const res = await fetchOneUser(profileId);
-      setUserData(res.user);
-      console.log(userData);
-    };
-    const getProfilePosts_user = async () => {
-      try {
-        const res = await fetchOneUser_posts(profileId);
-        setposts(res.posts);
-        sethaseMore(res.haseMore);
-        setloading(false);
-      } catch (error) {
-        router.push("");
-      }
-    };
     getProfilePosts_user();
     getProfileData_user();
   }, [profileId, router]);
 
+  if (userData._id === _id) myProfile = true;
+
   const handleFollow = async () => {
     await register_follower_db(userData.email);
   };
+
+  let postsJsx;
+  if (loading && posts.length === 0) postsJsx = <h4>loading..</h4>;
+  if (!loading && posts.length === 0) postsJsx = <h4>so empty</h4>;
+  if (!loading && posts.length !== 0) {
+    postsJsx = posts.map((el) => {
+      return <Cards key={el._id} client={_id} data={el} />;
+    });
+  }
+
   if (loading || !userData.email) return <h3>loading...</h3>;
 
   return (
@@ -66,7 +77,7 @@ function ProfileUser({ profileId }) {
 
           {!myProfile ? (
             <Button
-              variant="contained"
+              variant="text"
               color="primary"
               className={classes.followBtn}
               onClick={handleFollow}
@@ -77,11 +88,8 @@ function ProfileUser({ profileId }) {
         </div>
 
         <div className={classes.statdiv}>
-          <Link href="#">{userData.People_I_follow.length} following</Link>
-
-          <Link href="#">
-            {userData.People_that_follow_me.length} followers
-          </Link>
+          <span>{userData.People_I_follow.length} following</span>
+          <span>{userData.People_that_follow_me.length} followers</span>
         </div>
       </Paper>
 
@@ -98,13 +106,7 @@ function ProfileUser({ profileId }) {
         hasMore={haseMore}
         loader={<h4>Loading...</h4>}
       >
-        {posts.length !== 0 ? (
-          posts.map((el) => {
-            return <Cards key={el._id} client={_id} data={el} />;
-          })
-        ) : (
-          <h1>loading posts</h1>
-        )}
+        {postsJsx}
       </InfiniteScroll>
     </div>
   );

@@ -5,11 +5,7 @@ import Cards from "../home/Cards";
 import { connect } from "react-redux";
 import PostForm from "../home/postingForm";
 import { useLocation, useParams } from "react-router-dom";
-import {
- 
-  fetchOneUser,
-  fetchOneUser_posts,
-} from "../../api/fetchData";
+import { fetchOneUser, fetchOneUser_posts } from "../../api/fetchData";
 
 function PageProfile({ pageId }) {
   const classes = useStyles();
@@ -18,9 +14,6 @@ function PageProfile({ pageId }) {
 
   const [posts, setPosts] = useState([]);
 
-  
-
-  
   console.log(posts, data, pageId);
 
   return (
@@ -29,6 +22,7 @@ function PageProfile({ pageId }) {
         <Paper className={classes.root}>
           <img
             className={classes.coverImg}
+            alt="cover imagee"
             src={`https://social-app-taher.herokuapp.com/users/${data.coverImg}`}
           />
 
@@ -53,7 +47,7 @@ function PageProfile({ pageId }) {
       <PostForm />
 
       {posts.length !== 0 ? (
-        posts.map(el => {
+        posts.map((el) => {
           return <Cards key={el._id} data={el} />;
         })
       ) : (

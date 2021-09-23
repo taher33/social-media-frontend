@@ -13,6 +13,7 @@ function Home() {
   const [loading, setloading] = useState(true);
   const [page, setpage] = useState(2);
   const [haseMore, sethaseMore] = useState(false);
+
   const handleSubmit = async (formData) => {
     const { data } = await createPost(formData);
 
@@ -58,12 +59,7 @@ function Home() {
               loader={<h4>Loading...</h4>}
             >
               {posts.map((el, index) => {
-                return (
-                  <>
-                    {index}
-                    <Cards client={el.user._id} data={el} />
-                  </>
-                );
+                return <Cards client={el.user._id} data={el} />;
               })}
             </InfiniteScroll>
           )}

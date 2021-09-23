@@ -15,7 +15,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import ShareIcon from "@material-ui/icons/Share";
 
 export default function Cards({ data, client }) {
   //material-ui css in js
@@ -34,10 +33,11 @@ export default function Cards({ data, client }) {
   const handleClickSettings = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  //this came with material-ui
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   //this func handles clicking on the title takes the user to the post with comments
   const handleClick = () => {
     // history.push("/singlePost/" + id);
@@ -66,10 +66,12 @@ export default function Cards({ data, client }) {
       <CardHeader
         avatar={
           <Avatar
-            src={`${server_url}${data.user.profileImg}`}
-            aria-label="recipe"
+            // src={`${server_url}${data.user.profileImg}`}
+            // aria-label="recipe"
             className={classes.avatar}
-          />
+          >
+            {data.user.name.split("")[0]}
+          </Avatar>
         }
         action={
           <>
@@ -112,9 +114,6 @@ export default function Cards({ data, client }) {
           <FavoriteIcon color={like ? "primary" : "disabled"} />
         </IconButton>
         <Comment_Form postId={data._id} name={data.user.name} />
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
       </CardActions>
     </Card>
   );
